@@ -1,0 +1,78 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client"
+  previewFeatures = ["deno"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  uuid      String    @unique
+  id        Int       @id @default(autoincrement())
+  nama      String
+  username  String
+  email     String
+  password  String
+  role      String
+  alamat    Alamat[]
+  pembelian Pesanan[]
+}
+
+model Alamat {
+  uuid   String @unique
+  id     Int    @id @default(autoincrement())
+  alamat String
+  gedung String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  uuid    String    @unique
+  id      Int       @id @default(autoincrement())
+  nama    String
+  product Product[]
+}
+
+model Product {
+  uuid       String          @unique
+  id         Int             @id @default(autoincrement())
+  nama       String
+  desc       String
+  harga      Int
+  stock      Int
+  categoryId Int
+  category   Category        @relation(fields: [categoryId], references: [id])
+  detailPes  DetailPesanan[] @relation("DetailPesananToProduct")
+}
+
+model Pesanan {
+  uuid           String          @unique
+  id             Int             @id @default(autoincrement())
+  tanggalPesanan DateTime
+  statusPesanan  String
+  pembeliId      String
+  DetailPesanan  DetailPesanan[]
+  pengiriman     Pengiriman?
+  pembeli        User            @relation(fields: [pembeliId], references: [uuid])
+}
+
+model DetailPesanan {
+  uuid      String    @unique
+  id        Int       @id @default(autoincrement())
+  pesananId String
+  pesanan   Pesanan   @relation(fields: [pesananId], references: [uuid])
+  products  Product[] @relation("DetailPesananToProduct")
+}
+
+model Pengiriman {
+  uuid             String   @unique
+  id               Int
+  pesananId        String   @unique
+  alamatPengiriman String
+  Tanggal          DateTime
+  pesanan          Pesanan  @relation(fields: [pesananId], references: [uuid])
+}
