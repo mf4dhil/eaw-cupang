@@ -11,6 +11,7 @@ app.use(route.routes());
 app.use(route.allowedMethods())
 app.use(user.routes());
 app.use(user.allowedMethods())
+app.use(user.use)
 
 
 
