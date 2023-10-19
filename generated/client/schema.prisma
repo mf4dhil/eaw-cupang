@@ -1,0 +1,71 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client"
+  previewFeatures = ["deno"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  nama      String
+  username  String
+  email     String
+  password  String
+  role      String
+  alamat    Alamat[] 
+  pembelian Pesanan[]
+}
+
+model Alamat {
+  id     Int    @id @default(autoincrement())
+  alamat String
+  gedung String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  nama    String
+  product Product[]
+}
+
+model Product {
+  id         Int             @id @default(autoincrement())
+  nama       String
+  desc       String
+  harga      Int
+  stock      Int
+  categoryId Int
+  category   Category        @relation(fields: [categoryId], references: [id])
+  detailPes  DetailPesanan[] @relation("DetailPesananToProduct")
+}
+
+model Pesanan {
+  id             Int             @id @default(autoincrement())
+  tanggalPesanan DateTime
+  statusPesanan  String
+  pembeliId      Int
+  DetailPesanan  DetailPesanan[]
+  pengiriman     Pengiriman?
+  pembeli        User            @relation(fields: [pembeliId], references: [id])
+}
+
+model DetailPesanan {
+  id        Int       @id @default(autoincrement())
+  pesananId Int
+  pesanan   Pesanan   @relation(fields: [pesananId], references: [id])
+  products  Product[] @relation("DetailPesananToProduct")
+}
+
+model Pengiriman {
+  id               Int
+  pesananId        Int   @unique
+  alamatPengiriman String
+  Tanggal          DateTime
+  pesanan          Pesanan  @relation(fields: [pesananId], references: [id])
+}

@@ -1,0 +1,6 @@
+node_modules
+request.rest
+# Keep environment variables out of version control
+.env
+.vscode
+script.json
