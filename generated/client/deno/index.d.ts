@@ -80,6 +80,7 @@ export type ProductPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     id: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     categoryId: number
@@ -4628,6 +4629,7 @@ export namespace Prisma {
     id: number | null
     nama: string | null
     desc: string | null
+    img: string | null
     harga: number | null
     stock: number | null
     categoryId: number | null
@@ -4637,6 +4639,7 @@ export namespace Prisma {
     id: number | null
     nama: string | null
     desc: string | null
+    img: string | null
     harga: number | null
     stock: number | null
     categoryId: number | null
@@ -4646,6 +4649,7 @@ export namespace Prisma {
     id: number
     nama: number
     desc: number
+    img: number
     harga: number
     stock: number
     categoryId: number
@@ -4671,6 +4675,7 @@ export namespace Prisma {
     id?: true
     nama?: true
     desc?: true
+    img?: true
     harga?: true
     stock?: true
     categoryId?: true
@@ -4680,6 +4685,7 @@ export namespace Prisma {
     id?: true
     nama?: true
     desc?: true
+    img?: true
     harga?: true
     stock?: true
     categoryId?: true
@@ -4689,6 +4695,7 @@ export namespace Prisma {
     id?: true
     nama?: true
     desc?: true
+    img?: true
     harga?: true
     stock?: true
     categoryId?: true
@@ -4786,6 +4793,7 @@ export namespace Prisma {
     id: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     categoryId: number
@@ -4814,6 +4822,7 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     desc?: boolean
+    img?: boolean
     harga?: boolean
     stock?: boolean
     categoryId?: boolean
@@ -4826,6 +4835,7 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     desc?: boolean
+    img?: boolean
     harga?: boolean
     stock?: boolean
     categoryId?: boolean
@@ -8550,6 +8560,7 @@ export namespace Prisma {
     id: 'id',
     nama: 'nama',
     desc: 'desc',
+    img: 'img',
     harga: 'harga',
     stock: 'stock',
     categoryId: 'categoryId'
@@ -8753,6 +8764,7 @@ export namespace Prisma {
     id?: IntFilter | number
     nama?: StringFilter | string
     desc?: StringFilter | string
+    img?: StringFilter | string
     harga?: IntFilter | number
     stock?: IntFilter | number
     categoryId?: IntFilter | number
@@ -8764,6 +8776,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     desc?: SortOrder
+    img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
@@ -8779,6 +8792,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     desc?: SortOrder
+    img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
@@ -8796,6 +8810,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     nama?: StringWithAggregatesFilter | string
     desc?: StringWithAggregatesFilter | string
+    img?: StringWithAggregatesFilter | string
     harga?: IntWithAggregatesFilter | number
     stock?: IntWithAggregatesFilter | number
     categoryId?: IntWithAggregatesFilter | number
@@ -9086,6 +9101,7 @@ export namespace Prisma {
   export type ProductCreateInput = {
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     category: CategoryCreateNestedOneWithoutProductInput
@@ -9096,6 +9112,7 @@ export namespace Prisma {
     id?: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     categoryId: number
@@ -9105,6 +9122,7 @@ export namespace Prisma {
   export type ProductUpdateInput = {
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneRequiredWithoutProductNestedInput
@@ -9115,6 +9133,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
@@ -9125,6 +9144,7 @@ export namespace Prisma {
     id?: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     categoryId: number
@@ -9133,6 +9153,7 @@ export namespace Prisma {
   export type ProductUpdateManyMutationInput = {
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
   }
@@ -9141,13 +9162,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PesananCreateInput = {
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
@@ -9156,7 +9178,7 @@ export namespace Prisma {
 
   export type PesananUncheckedCreateInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     pembeliId: number
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
@@ -9182,7 +9204,7 @@ export namespace Prisma {
 
   export type PesananCreateManyInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     pembeliId: number
   }
@@ -9486,6 +9508,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     desc?: SortOrder
+    img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
@@ -9502,6 +9525,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     desc?: SortOrder
+    img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
@@ -9511,6 +9535,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     desc?: SortOrder
+    img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
@@ -10123,7 +10148,7 @@ export namespace Prisma {
   }
 
   export type PesananCreateWithoutPembeliInput = {
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
@@ -10131,7 +10156,7 @@ export namespace Prisma {
 
   export type PesananUncheckedCreateWithoutPembeliInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
@@ -10250,6 +10275,7 @@ export namespace Prisma {
   export type ProductCreateWithoutCategoryInput = {
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
@@ -10259,6 +10285,7 @@ export namespace Prisma {
     id?: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
@@ -10297,6 +10324,7 @@ export namespace Prisma {
     id?: IntFilter | number
     nama?: StringFilter | string
     desc?: StringFilter | string
+    img?: StringFilter | string
     harga?: IntFilter | number
     stock?: IntFilter | number
     categoryId?: IntFilter | number
@@ -10486,7 +10514,7 @@ export namespace Prisma {
   }
 
   export type PesananCreateWithoutDetailPesananInput = {
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
     pembeli: UserCreateNestedOneWithoutPembelianInput
@@ -10494,7 +10522,7 @@ export namespace Prisma {
 
   export type PesananUncheckedCreateWithoutDetailPesananInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     pembeliId: number
     pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
@@ -10508,6 +10536,7 @@ export namespace Prisma {
   export type ProductCreateWithoutDetailPesInput = {
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     category: CategoryCreateNestedOneWithoutProductInput
@@ -10517,6 +10546,7 @@ export namespace Prisma {
     id?: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
     categoryId: number
@@ -10564,7 +10594,7 @@ export namespace Prisma {
   }
 
   export type PesananCreateWithoutPengirimanInput = {
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pembeli: UserCreateNestedOneWithoutPembelianInput
@@ -10572,7 +10602,7 @@ export namespace Prisma {
 
   export type PesananUncheckedCreateWithoutPengirimanInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
     pembeliId: number
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
@@ -10611,7 +10641,7 @@ export namespace Prisma {
 
   export type PesananCreateManyPembeliInput = {
     id?: number
-    tanggalPesanan: Date | string
+    tanggalPesanan?: Date | string
     statusPesanan: string
   }
 
@@ -10657,6 +10687,7 @@ export namespace Prisma {
     id?: number
     nama: string
     desc: string
+    img: string
     harga: number
     stock: number
   }
@@ -10664,6 +10695,7 @@ export namespace Prisma {
   export type ProductUpdateWithoutCategoryInput = {
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
@@ -10673,6 +10705,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
@@ -10682,6 +10715,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
   }
@@ -10720,6 +10754,7 @@ export namespace Prisma {
   export type ProductUpdateWithoutDetailPesInput = {
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneRequiredWithoutProductNestedInput
@@ -10729,6 +10764,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
@@ -10738,6 +10774,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number

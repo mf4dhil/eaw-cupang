@@ -38,6 +38,7 @@ model Product {
   id         Int             @id @default(autoincrement())
   nama       String
   desc       String
+  img        String
   harga      Int
   stock      Int
   categoryId Int
@@ -47,7 +48,7 @@ model Product {
 
 model Pesanan {
   id             Int             @id @default(autoincrement())
-  tanggalPesanan DateTime
+  tanggalPesanan DateTime @default(now())
   statusPesanan  String
   pembeliId      Int
   DetailPesanan  DetailPesanan[]
