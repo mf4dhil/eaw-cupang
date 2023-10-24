@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/data-proxy';
+import * as runtime from './runtime/library';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -123,6 +123,7 @@ export type DetailPesananPayload<ExtArgs extends $Extensions.Args = $Extensions.
   scalars: $Extensions.GetResult<{
     id: number
     pesananId: number
+    jumlah: number
   }, ExtArgs["result"]["detailPesanan"]>
   composites: {}
 }
@@ -6613,26 +6614,31 @@ export namespace Prisma {
   export type DetailPesananAvgAggregateOutputType = {
     id: number | null
     pesananId: number | null
+    jumlah: number | null
   }
 
   export type DetailPesananSumAggregateOutputType = {
     id: number | null
     pesananId: number | null
+    jumlah: number | null
   }
 
   export type DetailPesananMinAggregateOutputType = {
     id: number | null
     pesananId: number | null
+    jumlah: number | null
   }
 
   export type DetailPesananMaxAggregateOutputType = {
     id: number | null
     pesananId: number | null
+    jumlah: number | null
   }
 
   export type DetailPesananCountAggregateOutputType = {
     id: number
     pesananId: number
+    jumlah: number
     _all: number
   }
 
@@ -6640,26 +6646,31 @@ export namespace Prisma {
   export type DetailPesananAvgAggregateInputType = {
     id?: true
     pesananId?: true
+    jumlah?: true
   }
 
   export type DetailPesananSumAggregateInputType = {
     id?: true
     pesananId?: true
+    jumlah?: true
   }
 
   export type DetailPesananMinAggregateInputType = {
     id?: true
     pesananId?: true
+    jumlah?: true
   }
 
   export type DetailPesananMaxAggregateInputType = {
     id?: true
     pesananId?: true
+    jumlah?: true
   }
 
   export type DetailPesananCountAggregateInputType = {
     id?: true
     pesananId?: true
+    jumlah?: true
     _all?: true
   }
 
@@ -6753,6 +6764,7 @@ export namespace Prisma {
   export type DetailPesananGroupByOutputType = {
     id: number
     pesananId: number
+    jumlah: number
     _count: DetailPesananCountAggregateOutputType | null
     _avg: DetailPesananAvgAggregateOutputType | null
     _sum: DetailPesananSumAggregateOutputType | null
@@ -6777,6 +6789,7 @@ export namespace Prisma {
   export type DetailPesananSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     pesananId?: boolean
+    jumlah?: boolean
     pesanan?: boolean | PesananArgs<ExtArgs>
     products?: boolean | DetailPesanan$productsArgs<ExtArgs>
     _count?: boolean | DetailPesananCountOutputTypeArgs<ExtArgs>
@@ -6785,6 +6798,7 @@ export namespace Prisma {
   export type DetailPesananSelectScalar = {
     id?: boolean
     pesananId?: boolean
+    jumlah?: boolean
   }
 
   export type DetailPesananInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -8581,7 +8595,8 @@ export namespace Prisma {
 
   export const DetailPesananScalarFieldEnum: {
     id: 'id',
-    pesananId: 'pesananId'
+    pesananId: 'pesananId',
+    jumlah: 'jumlah'
   };
 
   export type DetailPesananScalarFieldEnum = (typeof DetailPesananScalarFieldEnum)[keyof typeof DetailPesananScalarFieldEnum]
@@ -8871,6 +8886,7 @@ export namespace Prisma {
     NOT?: Enumerable<DetailPesananWhereInput>
     id?: IntFilter | number
     pesananId?: IntFilter | number
+    jumlah?: IntFilter | number
     pesanan?: XOR<PesananRelationFilter, PesananWhereInput>
     products?: ProductListRelationFilter
   }
@@ -8878,6 +8894,7 @@ export namespace Prisma {
   export type DetailPesananOrderByWithRelationInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
     pesanan?: PesananOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
   }
@@ -8889,6 +8906,7 @@ export namespace Prisma {
   export type DetailPesananOrderByWithAggregationInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
     _count?: DetailPesananCountOrderByAggregateInput
     _avg?: DetailPesananAvgOrderByAggregateInput
     _max?: DetailPesananMaxOrderByAggregateInput
@@ -8902,6 +8920,7 @@ export namespace Prisma {
     NOT?: Enumerable<DetailPesananScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     pesananId?: IntWithAggregatesFilter | number
+    jumlah?: IntWithAggregatesFilter | number
   }
 
   export type PengirimanWhereInput = {
@@ -9222,6 +9241,7 @@ export namespace Prisma {
   }
 
   export type DetailPesananCreateInput = {
+    jumlah: number
     pesanan: PesananCreateNestedOneWithoutDetailPesananInput
     products?: ProductCreateNestedManyWithoutDetailPesInput
   }
@@ -9229,10 +9249,12 @@ export namespace Prisma {
   export type DetailPesananUncheckedCreateInput = {
     id?: number
     pesananId: number
+    jumlah: number
     products?: ProductUncheckedCreateNestedManyWithoutDetailPesInput
   }
 
   export type DetailPesananUpdateInput = {
+    jumlah?: IntFieldUpdateOperationsInput | number
     pesanan?: PesananUpdateOneRequiredWithoutDetailPesananNestedInput
     products?: ProductUpdateManyWithoutDetailPesNestedInput
   }
@@ -9240,21 +9262,24 @@ export namespace Prisma {
   export type DetailPesananUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     pesananId?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
     products?: ProductUncheckedUpdateManyWithoutDetailPesNestedInput
   }
 
   export type DetailPesananCreateManyInput = {
     id?: number
     pesananId: number
+    jumlah: number
   }
 
   export type DetailPesananUpdateManyMutationInput = {
-
+    jumlah?: IntFieldUpdateOperationsInput | number
   }
 
   export type DetailPesananUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     pesananId?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
   }
 
   export type PengirimanCreateInput = {
@@ -9617,26 +9642,31 @@ export namespace Prisma {
   export type DetailPesananCountOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type DetailPesananAvgOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type DetailPesananMaxOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type DetailPesananMinOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type DetailPesananSumOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type PengirimanCountOrderByAggregateInput = {
@@ -10345,12 +10375,14 @@ export namespace Prisma {
   }
 
   export type DetailPesananCreateWithoutProductsInput = {
+    jumlah: number
     pesanan: PesananCreateNestedOneWithoutDetailPesananInput
   }
 
   export type DetailPesananUncheckedCreateWithoutProductsInput = {
     id?: number
     pesananId: number
+    jumlah: number
   }
 
   export type DetailPesananCreateOrConnectWithoutProductsInput = {
@@ -10394,14 +10426,17 @@ export namespace Prisma {
     NOT?: Enumerable<DetailPesananScalarWhereInput>
     id?: IntFilter | number
     pesananId?: IntFilter | number
+    jumlah?: IntFilter | number
   }
 
   export type DetailPesananCreateWithoutPesananInput = {
+    jumlah: number
     products?: ProductCreateNestedManyWithoutDetailPesInput
   }
 
   export type DetailPesananUncheckedCreateWithoutPesananInput = {
     id?: number
+    jumlah: number
     products?: ProductUncheckedCreateNestedManyWithoutDetailPesInput
   }
 
@@ -10721,34 +10756,41 @@ export namespace Prisma {
   }
 
   export type DetailPesananUpdateWithoutProductsInput = {
+    jumlah?: IntFieldUpdateOperationsInput | number
     pesanan?: PesananUpdateOneRequiredWithoutDetailPesananNestedInput
   }
 
   export type DetailPesananUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     pesananId?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
   }
 
   export type DetailPesananUncheckedUpdateManyWithoutDetailPesInput = {
     id?: IntFieldUpdateOperationsInput | number
     pesananId?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
   }
 
   export type DetailPesananCreateManyPesananInput = {
     id?: number
+    jumlah: number
   }
 
   export type DetailPesananUpdateWithoutPesananInput = {
+    jumlah?: IntFieldUpdateOperationsInput | number
     products?: ProductUpdateManyWithoutDetailPesNestedInput
   }
 
   export type DetailPesananUncheckedUpdateWithoutPesananInput = {
     id?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
     products?: ProductUncheckedUpdateManyWithoutDetailPesNestedInput
   }
 
   export type DetailPesananUncheckedUpdateManyWithoutDetailPesananInput = {
     id?: IntFieldUpdateOperationsInput | number
+    jumlah?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUpdateWithoutDetailPesInput = {

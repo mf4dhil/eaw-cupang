@@ -48,7 +48,7 @@ model Product {
 
 model Pesanan {
   id             Int             @id @default(autoincrement())
-  tanggalPesanan DateTime @default(now())
+  tanggalPesanan DateTime        @default(now())
   statusPesanan  String
   pembeliId      Int
   DetailPesanan  DetailPesanan[]
@@ -61,6 +61,7 @@ model DetailPesanan {
   pesananId Int
   pesanan   Pesanan   @relation(fields: [pesananId], references: [id])
   products  Product[] @relation("DetailPesananToProduct")
+  jumlah    Int
 }
 
 model Pengiriman {

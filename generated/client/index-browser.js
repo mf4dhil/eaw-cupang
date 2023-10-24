@@ -145,7 +145,8 @@ exports.Prisma.PesananScalarFieldEnum = {
 
 exports.Prisma.DetailPesananScalarFieldEnum = {
   id: 'id',
-  pesananId: 'pesananId'
+  pesananId: 'pesananId',
+  jumlah: 'jumlah'
 };
 
 exports.Prisma.PengirimanScalarFieldEnum = {
