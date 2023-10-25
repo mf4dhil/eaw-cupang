@@ -65,9 +65,9 @@ model DetailPesanan {
 }
 
 model Pengiriman {
-  id               Int
+  id               Int @default(autoincrement())
   pesananId        Int      @unique
   alamatPengiriman String
-  Tanggal          DateTime
+  Tanggal          DateTime 
   pesanan          Pesanan  @relation(fields: [pesananId], references: [id])
 }

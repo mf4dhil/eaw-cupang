@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/library';
+import * as runtime from './runtime/data-proxy';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -9283,14 +9283,14 @@ export namespace Prisma {
   }
 
   export type PengirimanCreateInput = {
-    id: number
+    id?: number
     alamatPengiriman: string
     Tanggal: Date | string
     pesanan: PesananCreateNestedOneWithoutPengirimanInput
   }
 
   export type PengirimanUncheckedCreateInput = {
-    id: number
+    id?: number
     pesananId: number
     alamatPengiriman: string
     Tanggal: Date | string
@@ -9311,7 +9311,7 @@ export namespace Prisma {
   }
 
   export type PengirimanCreateManyInput = {
-    id: number
+    id?: number
     pesananId: number
     alamatPengiriman: string
     Tanggal: Date | string
@@ -10451,13 +10451,13 @@ export namespace Prisma {
   }
 
   export type PengirimanCreateWithoutPesananInput = {
-    id: number
+    id?: number
     alamatPengiriman: string
     Tanggal: Date | string
   }
 
   export type PengirimanUncheckedCreateWithoutPesananInput = {
-    id: number
+    id?: number
     alamatPengiriman: string
     Tanggal: Date | string
   }
