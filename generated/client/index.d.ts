@@ -99,6 +99,7 @@ export type PesananPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     DetailPesanan: DetailPesananPayload<ExtArgs>[]
     pengiriman: PengirimanPayload<ExtArgs> | null
     pembeli: UserPayload<ExtArgs>
+    BuktiBayar: BuktiBayarPayload<ExtArgs> | null
   }
   scalars: $Extensions.GetResult<{
     id: number
@@ -152,6 +153,24 @@ export type PengirimanPayload<ExtArgs extends $Extensions.Args = $Extensions.Def
  * 
  */
 export type Pengiriman = runtime.Types.DefaultSelection<PengirimanPayload>
+export type BuktiBayarPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "BuktiBayar"
+  objects: {
+    pesanan: PesananPayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    pesananId: number
+    img: string | null
+  }, ExtArgs["result"]["buktiBayar"]>
+  composites: {}
+}
+
+/**
+ * Model BuktiBayar
+ * 
+ */
+export type BuktiBayar = runtime.Types.DefaultSelection<BuktiBayarPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -347,6 +366,16 @@ export class PrismaClient<
     * ```
     */
   get pengiriman(): Prisma.PengirimanDelegate<GlobalReject, ExtArgs>;
+
+  /**
+   * `prisma.buktiBayar`: Exposes CRUD operations for the **BuktiBayar** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BuktiBayars
+    * const buktiBayars = await prisma.buktiBayar.findMany()
+    * ```
+    */
+  get buktiBayar(): Prisma.BuktiBayarDelegate<GlobalReject, ExtArgs>;
 }
 
 export namespace Prisma {
@@ -836,7 +865,8 @@ export namespace Prisma {
     Product: 'Product',
     Pesanan: 'Pesanan',
     DetailPesanan: 'DetailPesanan',
-    Pengiriman: 'Pengiriman'
+    Pengiriman: 'Pengiriman',
+    BuktiBayar: 'BuktiBayar'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -853,7 +883,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'alamat' | 'category' | 'product' | 'pesanan' | 'detailPesanan' | 'pengiriman'
+      modelProps: 'user' | 'alamat' | 'category' | 'product' | 'pesanan' | 'detailPesanan' | 'pengiriman' | 'buktiBayar'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1309,6 +1339,71 @@ export namespace Prisma {
           count: {
             args: Prisma.PengirimanCountArgs<ExtArgs>,
             result: $Utils.Optional<PengirimanCountAggregateOutputType> | number
+          }
+        }
+      }
+      BuktiBayar: {
+        payload: BuktiBayarPayload<ExtArgs>
+        operations: {
+          findUnique: {
+            args: Prisma.BuktiBayarFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BuktiBayarFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          findFirst: {
+            args: Prisma.BuktiBayarFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BuktiBayarFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          findMany: {
+            args: Prisma.BuktiBayarFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>[]
+          }
+          create: {
+            args: Prisma.BuktiBayarCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          createMany: {
+            args: Prisma.BuktiBayarCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BuktiBayarDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          update: {
+            args: Prisma.BuktiBayarUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          deleteMany: {
+            args: Prisma.BuktiBayarDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BuktiBayarUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BuktiBayarUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BuktiBayarPayload>
+          }
+          aggregate: {
+            args: Prisma.BuktiBayarAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBuktiBayar>
+          }
+          groupBy: {
+            args: Prisma.BuktiBayarGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BuktiBayarGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BuktiBayarCountArgs<ExtArgs>,
+            result: $Utils.Optional<BuktiBayarCountAggregateOutputType> | number
           }
         }
       }
@@ -5813,6 +5908,7 @@ export namespace Prisma {
     DetailPesanan?: boolean | Pesanan$DetailPesananArgs<ExtArgs>
     pengiriman?: boolean | PengirimanArgs<ExtArgs>
     pembeli?: boolean | UserArgs<ExtArgs>
+    BuktiBayar?: boolean | BuktiBayarArgs<ExtArgs>
     _count?: boolean | PesananCountOutputTypeArgs<ExtArgs>
   }, ExtArgs["result"]["pesanan"]>
 
@@ -5827,6 +5923,7 @@ export namespace Prisma {
     DetailPesanan?: boolean | Pesanan$DetailPesananArgs<ExtArgs>
     pengiriman?: boolean | PengirimanArgs<ExtArgs>
     pembeli?: boolean | UserArgs<ExtArgs>
+    BuktiBayar?: boolean | BuktiBayarArgs<ExtArgs>
     _count?: boolean | PesananCountOutputTypeArgs<ExtArgs>
   }
 
@@ -6205,6 +6302,8 @@ export namespace Prisma {
     pengiriman<T extends PengirimanArgs<ExtArgs> = {}>(args?: Subset<T, PengirimanArgs<ExtArgs>>): Prisma__PengirimanClient<$Types.GetResult<PengirimanPayload<ExtArgs>, T, 'findUnique', never> | Null, never, ExtArgs>;
 
     pembeli<T extends UserArgs<ExtArgs> = {}>(args?: Subset<T, UserArgs<ExtArgs>>): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findUnique', never> | Null, never, ExtArgs>;
+
+    BuktiBayar<T extends BuktiBayarArgs<ExtArgs> = {}>(args?: Subset<T, BuktiBayarArgs<ExtArgs>>): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findUnique', never> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -8527,6 +8626,950 @@ export namespace Prisma {
 
 
   /**
+   * Model BuktiBayar
+   */
+
+
+  export type AggregateBuktiBayar = {
+    _count: BuktiBayarCountAggregateOutputType | null
+    _avg: BuktiBayarAvgAggregateOutputType | null
+    _sum: BuktiBayarSumAggregateOutputType | null
+    _min: BuktiBayarMinAggregateOutputType | null
+    _max: BuktiBayarMaxAggregateOutputType | null
+  }
+
+  export type BuktiBayarAvgAggregateOutputType = {
+    id: number | null
+    pesananId: number | null
+  }
+
+  export type BuktiBayarSumAggregateOutputType = {
+    id: number | null
+    pesananId: number | null
+  }
+
+  export type BuktiBayarMinAggregateOutputType = {
+    id: number | null
+    pesananId: number | null
+    img: string | null
+  }
+
+  export type BuktiBayarMaxAggregateOutputType = {
+    id: number | null
+    pesananId: number | null
+    img: string | null
+  }
+
+  export type BuktiBayarCountAggregateOutputType = {
+    id: number
+    pesananId: number
+    img: number
+    _all: number
+  }
+
+
+  export type BuktiBayarAvgAggregateInputType = {
+    id?: true
+    pesananId?: true
+  }
+
+  export type BuktiBayarSumAggregateInputType = {
+    id?: true
+    pesananId?: true
+  }
+
+  export type BuktiBayarMinAggregateInputType = {
+    id?: true
+    pesananId?: true
+    img?: true
+  }
+
+  export type BuktiBayarMaxAggregateInputType = {
+    id?: true
+    pesananId?: true
+    img?: true
+  }
+
+  export type BuktiBayarCountAggregateInputType = {
+    id?: true
+    pesananId?: true
+    img?: true
+    _all?: true
+  }
+
+  export type BuktiBayarAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BuktiBayar to aggregate.
+     */
+    where?: BuktiBayarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BuktiBayars to fetch.
+     */
+    orderBy?: Enumerable<BuktiBayarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BuktiBayarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BuktiBayars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BuktiBayars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BuktiBayars
+    **/
+    _count?: true | BuktiBayarCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BuktiBayarAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BuktiBayarSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BuktiBayarMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BuktiBayarMaxAggregateInputType
+  }
+
+  export type GetBuktiBayarAggregateType<T extends BuktiBayarAggregateArgs> = {
+        [P in keyof T & keyof AggregateBuktiBayar]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBuktiBayar[P]>
+      : GetScalarType<T[P], AggregateBuktiBayar[P]>
+  }
+
+
+
+
+  export type BuktiBayarGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BuktiBayarWhereInput
+    orderBy?: Enumerable<BuktiBayarOrderByWithAggregationInput>
+    by: BuktiBayarScalarFieldEnum[]
+    having?: BuktiBayarScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BuktiBayarCountAggregateInputType | true
+    _avg?: BuktiBayarAvgAggregateInputType
+    _sum?: BuktiBayarSumAggregateInputType
+    _min?: BuktiBayarMinAggregateInputType
+    _max?: BuktiBayarMaxAggregateInputType
+  }
+
+
+  export type BuktiBayarGroupByOutputType = {
+    id: number
+    pesananId: number
+    img: string | null
+    _count: BuktiBayarCountAggregateOutputType | null
+    _avg: BuktiBayarAvgAggregateOutputType | null
+    _sum: BuktiBayarSumAggregateOutputType | null
+    _min: BuktiBayarMinAggregateOutputType | null
+    _max: BuktiBayarMaxAggregateOutputType | null
+  }
+
+  type GetBuktiBayarGroupByPayload<T extends BuktiBayarGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<BuktiBayarGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BuktiBayarGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BuktiBayarGroupByOutputType[P]>
+            : GetScalarType<T[P], BuktiBayarGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BuktiBayarSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pesananId?: boolean
+    img?: boolean
+    pesanan?: boolean | PesananArgs<ExtArgs>
+  }, ExtArgs["result"]["buktiBayar"]>
+
+  export type BuktiBayarSelectScalar = {
+    id?: boolean
+    pesananId?: boolean
+    img?: boolean
+  }
+
+  export type BuktiBayarInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    pesanan?: boolean | PesananArgs<ExtArgs>
+  }
+
+
+  type BuktiBayarGetPayload<S extends boolean | null | undefined | BuktiBayarArgs> = $Types.GetResult<BuktiBayarPayload, S>
+
+  type BuktiBayarCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<BuktiBayarFindManyArgs, 'select' | 'include'> & {
+      select?: BuktiBayarCountAggregateInputType | true
+    }
+
+  export interface BuktiBayarDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BuktiBayar'], meta: { name: 'BuktiBayar' } }
+    /**
+     * Find zero or one BuktiBayar that matches the filter.
+     * @param {BuktiBayarFindUniqueArgs} args - Arguments to find a BuktiBayar
+     * @example
+     * // Get one BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BuktiBayarFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, BuktiBayarFindUniqueArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'BuktiBayar'> extends True ? Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
+
+    /**
+     * Find one BuktiBayar that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BuktiBayarFindUniqueOrThrowArgs} args - Arguments to find a BuktiBayar
+     * @example
+     * // Get one BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BuktiBayarFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BuktiBayarFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find the first BuktiBayar that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarFindFirstArgs} args - Arguments to find a BuktiBayar
+     * @example
+     * // Get one BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BuktiBayarFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, BuktiBayarFindFirstArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'BuktiBayar'> extends True ? Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
+
+    /**
+     * Find the first BuktiBayar that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarFindFirstOrThrowArgs} args - Arguments to find a BuktiBayar
+     * @example
+     * // Get one BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BuktiBayarFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BuktiBayarFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find zero or more BuktiBayars that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BuktiBayars
+     * const buktiBayars = await prisma.buktiBayar.findMany()
+     * 
+     * // Get first 10 BuktiBayars
+     * const buktiBayars = await prisma.buktiBayar.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const buktiBayarWithIdOnly = await prisma.buktiBayar.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BuktiBayarFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BuktiBayarFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'findMany', never>>
+
+    /**
+     * Create a BuktiBayar.
+     * @param {BuktiBayarCreateArgs} args - Arguments to create a BuktiBayar.
+     * @example
+     * // Create one BuktiBayar
+     * const BuktiBayar = await prisma.buktiBayar.create({
+     *   data: {
+     *     // ... data to create a BuktiBayar
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BuktiBayarCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BuktiBayarCreateArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
+
+    /**
+     * Create many BuktiBayars.
+     *     @param {BuktiBayarCreateManyArgs} args - Arguments to create many BuktiBayars.
+     *     @example
+     *     // Create many BuktiBayars
+     *     const buktiBayar = await prisma.buktiBayar.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BuktiBayarCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BuktiBayarCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BuktiBayar.
+     * @param {BuktiBayarDeleteArgs} args - Arguments to delete one BuktiBayar.
+     * @example
+     * // Delete one BuktiBayar
+     * const BuktiBayar = await prisma.buktiBayar.delete({
+     *   where: {
+     *     // ... filter to delete one BuktiBayar
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BuktiBayarDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BuktiBayarDeleteArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
+
+    /**
+     * Update one BuktiBayar.
+     * @param {BuktiBayarUpdateArgs} args - Arguments to update one BuktiBayar.
+     * @example
+     * // Update one BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BuktiBayarUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BuktiBayarUpdateArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BuktiBayars.
+     * @param {BuktiBayarDeleteManyArgs} args - Arguments to filter BuktiBayars to delete.
+     * @example
+     * // Delete a few BuktiBayars
+     * const { count } = await prisma.buktiBayar.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BuktiBayarDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BuktiBayarDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BuktiBayars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BuktiBayars
+     * const buktiBayar = await prisma.buktiBayar.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BuktiBayarUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BuktiBayarUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BuktiBayar.
+     * @param {BuktiBayarUpsertArgs} args - Arguments to update or create a BuktiBayar.
+     * @example
+     * // Update or create a BuktiBayar
+     * const buktiBayar = await prisma.buktiBayar.upsert({
+     *   create: {
+     *     // ... data to create a BuktiBayar
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BuktiBayar we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BuktiBayarUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BuktiBayarUpsertArgs<ExtArgs>>
+    ): Prisma__BuktiBayarClient<$Types.GetResult<BuktiBayarPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
+
+    /**
+     * Count the number of BuktiBayars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarCountArgs} args - Arguments to filter BuktiBayars to count.
+     * @example
+     * // Count the number of BuktiBayars
+     * const count = await prisma.buktiBayar.count({
+     *   where: {
+     *     // ... the filter for the BuktiBayars we want to count
+     *   }
+     * })
+    **/
+    count<T extends BuktiBayarCountArgs>(
+      args?: Subset<T, BuktiBayarCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BuktiBayarCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BuktiBayar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BuktiBayarAggregateArgs>(args: Subset<T, BuktiBayarAggregateArgs>): Prisma.PrismaPromise<GetBuktiBayarAggregateType<T>>
+
+    /**
+     * Group by BuktiBayar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BuktiBayarGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BuktiBayarGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BuktiBayarGroupByArgs['orderBy'] }
+        : { orderBy?: BuktiBayarGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BuktiBayarGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBuktiBayarGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BuktiBayar.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__BuktiBayarClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    pesanan<T extends PesananArgs<ExtArgs> = {}>(args?: Subset<T, PesananArgs<ExtArgs>>): Prisma__PesananClient<$Types.GetResult<PesananPayload<ExtArgs>, T, 'findUnique', never> | Null, never, ExtArgs>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * BuktiBayar base type for findUnique actions
+   */
+  export type BuktiBayarFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter, which BuktiBayar to fetch.
+     */
+    where: BuktiBayarWhereUniqueInput
+  }
+
+  /**
+   * BuktiBayar findUnique
+   */
+  export interface BuktiBayarFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends BuktiBayarFindUniqueArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * BuktiBayar findUniqueOrThrow
+   */
+  export type BuktiBayarFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter, which BuktiBayar to fetch.
+     */
+    where: BuktiBayarWhereUniqueInput
+  }
+
+
+  /**
+   * BuktiBayar base type for findFirst actions
+   */
+  export type BuktiBayarFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter, which BuktiBayar to fetch.
+     */
+    where?: BuktiBayarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BuktiBayars to fetch.
+     */
+    orderBy?: Enumerable<BuktiBayarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BuktiBayars.
+     */
+    cursor?: BuktiBayarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BuktiBayars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BuktiBayars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BuktiBayars.
+     */
+    distinct?: Enumerable<BuktiBayarScalarFieldEnum>
+  }
+
+  /**
+   * BuktiBayar findFirst
+   */
+  export interface BuktiBayarFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends BuktiBayarFindFirstArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * BuktiBayar findFirstOrThrow
+   */
+  export type BuktiBayarFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter, which BuktiBayar to fetch.
+     */
+    where?: BuktiBayarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BuktiBayars to fetch.
+     */
+    orderBy?: Enumerable<BuktiBayarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BuktiBayars.
+     */
+    cursor?: BuktiBayarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BuktiBayars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BuktiBayars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BuktiBayars.
+     */
+    distinct?: Enumerable<BuktiBayarScalarFieldEnum>
+  }
+
+
+  /**
+   * BuktiBayar findMany
+   */
+  export type BuktiBayarFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter, which BuktiBayars to fetch.
+     */
+    where?: BuktiBayarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BuktiBayars to fetch.
+     */
+    orderBy?: Enumerable<BuktiBayarOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BuktiBayars.
+     */
+    cursor?: BuktiBayarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BuktiBayars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BuktiBayars.
+     */
+    skip?: number
+    distinct?: Enumerable<BuktiBayarScalarFieldEnum>
+  }
+
+
+  /**
+   * BuktiBayar create
+   */
+  export type BuktiBayarCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BuktiBayar.
+     */
+    data: XOR<BuktiBayarCreateInput, BuktiBayarUncheckedCreateInput>
+  }
+
+
+  /**
+   * BuktiBayar createMany
+   */
+  export type BuktiBayarCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BuktiBayars.
+     */
+    data: Enumerable<BuktiBayarCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * BuktiBayar update
+   */
+  export type BuktiBayarUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BuktiBayar.
+     */
+    data: XOR<BuktiBayarUpdateInput, BuktiBayarUncheckedUpdateInput>
+    /**
+     * Choose, which BuktiBayar to update.
+     */
+    where: BuktiBayarWhereUniqueInput
+  }
+
+
+  /**
+   * BuktiBayar updateMany
+   */
+  export type BuktiBayarUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BuktiBayars.
+     */
+    data: XOR<BuktiBayarUpdateManyMutationInput, BuktiBayarUncheckedUpdateManyInput>
+    /**
+     * Filter which BuktiBayars to update
+     */
+    where?: BuktiBayarWhereInput
+  }
+
+
+  /**
+   * BuktiBayar upsert
+   */
+  export type BuktiBayarUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BuktiBayar to update in case it exists.
+     */
+    where: BuktiBayarWhereUniqueInput
+    /**
+     * In case the BuktiBayar found by the `where` argument doesn't exist, create a new BuktiBayar with this data.
+     */
+    create: XOR<BuktiBayarCreateInput, BuktiBayarUncheckedCreateInput>
+    /**
+     * In case the BuktiBayar was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BuktiBayarUpdateInput, BuktiBayarUncheckedUpdateInput>
+  }
+
+
+  /**
+   * BuktiBayar delete
+   */
+  export type BuktiBayarDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+    /**
+     * Filter which BuktiBayar to delete.
+     */
+    where: BuktiBayarWhereUniqueInput
+  }
+
+
+  /**
+   * BuktiBayar deleteMany
+   */
+  export type BuktiBayarDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BuktiBayars to delete
+     */
+    where?: BuktiBayarWhereInput
+  }
+
+
+  /**
+   * BuktiBayar without action
+   */
+  export type BuktiBayarArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BuktiBayar
+     */
+    select?: BuktiBayarSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BuktiBayarInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -8612,6 +9655,15 @@ export namespace Prisma {
   export type PengirimanScalarFieldEnum = (typeof PengirimanScalarFieldEnum)[keyof typeof PengirimanScalarFieldEnum]
 
 
+  export const BuktiBayarScalarFieldEnum: {
+    id: 'id',
+    pesananId: 'pesananId',
+    img: 'img'
+  };
+
+  export type BuktiBayarScalarFieldEnum = (typeof BuktiBayarScalarFieldEnum)[keyof typeof BuktiBayarScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8626,6 +9678,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -8842,6 +9902,7 @@ export namespace Prisma {
     DetailPesanan?: DetailPesananListRelationFilter
     pengiriman?: XOR<PengirimanRelationFilter, PengirimanWhereInput> | null
     pembeli?: XOR<UserRelationFilter, UserWhereInput>
+    BuktiBayar?: XOR<BuktiBayarRelationFilter, BuktiBayarWhereInput> | null
   }
 
   export type PesananOrderByWithRelationInput = {
@@ -8852,6 +9913,7 @@ export namespace Prisma {
     DetailPesanan?: DetailPesananOrderByRelationAggregateInput
     pengiriman?: PengirimanOrderByWithRelationInput
     pembeli?: UserOrderByWithRelationInput
+    BuktiBayar?: BuktiBayarOrderByWithRelationInput
   }
 
   export type PesananWhereUniqueInput = {
@@ -8966,6 +10028,47 @@ export namespace Prisma {
     pesananId?: IntWithAggregatesFilter | number
     alamatPengiriman?: StringWithAggregatesFilter | string
     Tanggal?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type BuktiBayarWhereInput = {
+    AND?: Enumerable<BuktiBayarWhereInput>
+    OR?: Enumerable<BuktiBayarWhereInput>
+    NOT?: Enumerable<BuktiBayarWhereInput>
+    id?: IntFilter | number
+    pesananId?: IntFilter | number
+    img?: StringNullableFilter | string | null
+    pesanan?: XOR<PesananRelationFilter, PesananWhereInput>
+  }
+
+  export type BuktiBayarOrderByWithRelationInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+    img?: SortOrderInput | SortOrder
+    pesanan?: PesananOrderByWithRelationInput
+  }
+
+  export type BuktiBayarWhereUniqueInput = {
+    pesananId?: number
+  }
+
+  export type BuktiBayarOrderByWithAggregationInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+    img?: SortOrderInput | SortOrder
+    _count?: BuktiBayarCountOrderByAggregateInput
+    _avg?: BuktiBayarAvgOrderByAggregateInput
+    _max?: BuktiBayarMaxOrderByAggregateInput
+    _min?: BuktiBayarMinOrderByAggregateInput
+    _sum?: BuktiBayarSumOrderByAggregateInput
+  }
+
+  export type BuktiBayarScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<BuktiBayarScalarWhereWithAggregatesInput>
+    OR?: Enumerable<BuktiBayarScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<BuktiBayarScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    pesananId?: IntWithAggregatesFilter | number
+    img?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type UserCreateInput = {
@@ -9193,6 +10296,7 @@ export namespace Prisma {
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
     pembeli: UserCreateNestedOneWithoutPembelianInput
+    BuktiBayar?: BuktiBayarCreateNestedOneWithoutPesananInput
   }
 
   export type PesananUncheckedCreateInput = {
@@ -9202,6 +10306,7 @@ export namespace Prisma {
     pembeliId: number
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
+    BuktiBayar?: BuktiBayarUncheckedCreateNestedOneWithoutPesananInput
   }
 
   export type PesananUpdateInput = {
@@ -9210,6 +10315,7 @@ export namespace Prisma {
     DetailPesanan?: DetailPesananUpdateManyWithoutPesananNestedInput
     pengiriman?: PengirimanUpdateOneWithoutPesananNestedInput
     pembeli?: UserUpdateOneRequiredWithoutPembelianNestedInput
+    BuktiBayar?: BuktiBayarUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananUncheckedUpdateInput = {
@@ -9219,6 +10325,7 @@ export namespace Prisma {
     pembeliId?: IntFieldUpdateOperationsInput | number
     DetailPesanan?: DetailPesananUncheckedUpdateManyWithoutPesananNestedInput
     pengiriman?: PengirimanUncheckedUpdateOneWithoutPesananNestedInput
+    BuktiBayar?: BuktiBayarUncheckedUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananCreateManyInput = {
@@ -9285,7 +10392,7 @@ export namespace Prisma {
   export type PengirimanCreateInput = {
     id?: number
     alamatPengiriman: string
-    Tanggal: Date | string
+    Tanggal?: Date | string
     pesanan: PesananCreateNestedOneWithoutPengirimanInput
   }
 
@@ -9293,7 +10400,7 @@ export namespace Prisma {
     id?: number
     pesananId: number
     alamatPengiriman: string
-    Tanggal: Date | string
+    Tanggal?: Date | string
   }
 
   export type PengirimanUpdateInput = {
@@ -9314,7 +10421,7 @@ export namespace Prisma {
     id?: number
     pesananId: number
     alamatPengiriman: string
-    Tanggal: Date | string
+    Tanggal?: Date | string
   }
 
   export type PengirimanUpdateManyMutationInput = {
@@ -9328,6 +10435,47 @@ export namespace Prisma {
     pesananId?: IntFieldUpdateOperationsInput | number
     alamatPengiriman?: StringFieldUpdateOperationsInput | string
     Tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BuktiBayarCreateInput = {
+    id?: number
+    img?: string | null
+    pesanan: PesananCreateNestedOneWithoutBuktiBayarInput
+  }
+
+  export type BuktiBayarUncheckedCreateInput = {
+    id?: number
+    pesananId: number
+    img?: string | null
+  }
+
+  export type BuktiBayarUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+    pesanan?: PesananUpdateOneRequiredWithoutBuktiBayarNestedInput
+  }
+
+  export type BuktiBayarUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pesananId?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BuktiBayarCreateManyInput = {
+    id?: number
+    pesananId: number
+    img?: string | null
+  }
+
+  export type BuktiBayarUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BuktiBayarUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pesananId?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter = {
@@ -9589,6 +10737,11 @@ export namespace Prisma {
     isNot?: PengirimanWhereInput | null
   }
 
+  export type BuktiBayarRelationFilter = {
+    is?: BuktiBayarWhereInput | null
+    isNot?: BuktiBayarWhereInput | null
+  }
+
   export type PesananCountOrderByAggregateInput = {
     id?: SortOrder
     tanggalPesanan?: SortOrder
@@ -9698,6 +10851,72 @@ export namespace Prisma {
   export type PengirimanSumOrderByAggregateInput = {
     id?: SortOrder
     pesananId?: SortOrder
+  }
+
+  export type StringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableFilter | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type BuktiBayarCountOrderByAggregateInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+    img?: SortOrder
+  }
+
+  export type BuktiBayarAvgOrderByAggregateInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+  }
+
+  export type BuktiBayarMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+    img?: SortOrder
+  }
+
+  export type BuktiBayarMinOrderByAggregateInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+    img?: SortOrder
+  }
+
+  export type BuktiBayarSumOrderByAggregateInput = {
+    id?: SortOrder
+    pesananId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
   }
 
   export type AlamatCreateNestedManyWithoutUserInput = {
@@ -9923,6 +11142,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type BuktiBayarCreateNestedOneWithoutPesananInput = {
+    create?: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
+    connectOrCreate?: BuktiBayarCreateOrConnectWithoutPesananInput
+    connect?: BuktiBayarWhereUniqueInput
+  }
+
   export type DetailPesananUncheckedCreateNestedManyWithoutPesananInput = {
     create?: XOR<Enumerable<DetailPesananCreateWithoutPesananInput>, Enumerable<DetailPesananUncheckedCreateWithoutPesananInput>>
     connectOrCreate?: Enumerable<DetailPesananCreateOrConnectWithoutPesananInput>
@@ -9934,6 +11159,12 @@ export namespace Prisma {
     create?: XOR<PengirimanCreateWithoutPesananInput, PengirimanUncheckedCreateWithoutPesananInput>
     connectOrCreate?: PengirimanCreateOrConnectWithoutPesananInput
     connect?: PengirimanWhereUniqueInput
+  }
+
+  export type BuktiBayarUncheckedCreateNestedOneWithoutPesananInput = {
+    create?: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
+    connectOrCreate?: BuktiBayarCreateOrConnectWithoutPesananInput
+    connect?: BuktiBayarWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -9972,6 +11203,16 @@ export namespace Prisma {
     update?: XOR<UserUpdateWithoutPembelianInput, UserUncheckedUpdateWithoutPembelianInput>
   }
 
+  export type BuktiBayarUpdateOneWithoutPesananNestedInput = {
+    create?: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
+    connectOrCreate?: BuktiBayarCreateOrConnectWithoutPesananInput
+    upsert?: BuktiBayarUpsertWithoutPesananInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: BuktiBayarWhereUniqueInput
+    update?: XOR<BuktiBayarUpdateWithoutPesananInput, BuktiBayarUncheckedUpdateWithoutPesananInput>
+  }
+
   export type DetailPesananUncheckedUpdateManyWithoutPesananNestedInput = {
     create?: XOR<Enumerable<DetailPesananCreateWithoutPesananInput>, Enumerable<DetailPesananUncheckedCreateWithoutPesananInput>>
     connectOrCreate?: Enumerable<DetailPesananCreateOrConnectWithoutPesananInput>
@@ -9994,6 +11235,16 @@ export namespace Prisma {
     delete?: boolean
     connect?: PengirimanWhereUniqueInput
     update?: XOR<PengirimanUpdateWithoutPesananInput, PengirimanUncheckedUpdateWithoutPesananInput>
+  }
+
+  export type BuktiBayarUncheckedUpdateOneWithoutPesananNestedInput = {
+    create?: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
+    connectOrCreate?: BuktiBayarCreateOrConnectWithoutPesananInput
+    upsert?: BuktiBayarUpsertWithoutPesananInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: BuktiBayarWhereUniqueInput
+    update?: XOR<BuktiBayarUpdateWithoutPesananInput, BuktiBayarUncheckedUpdateWithoutPesananInput>
   }
 
   export type PesananCreateNestedOneWithoutDetailPesananInput = {
@@ -10060,6 +11311,24 @@ export namespace Prisma {
     upsert?: PesananUpsertWithoutPengirimanInput
     connect?: PesananWhereUniqueInput
     update?: XOR<PesananUpdateWithoutPengirimanInput, PesananUncheckedUpdateWithoutPengirimanInput>
+  }
+
+  export type PesananCreateNestedOneWithoutBuktiBayarInput = {
+    create?: XOR<PesananCreateWithoutBuktiBayarInput, PesananUncheckedCreateWithoutBuktiBayarInput>
+    connectOrCreate?: PesananCreateOrConnectWithoutBuktiBayarInput
+    connect?: PesananWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type PesananUpdateOneRequiredWithoutBuktiBayarNestedInput = {
+    create?: XOR<PesananCreateWithoutBuktiBayarInput, PesananUncheckedCreateWithoutBuktiBayarInput>
+    connectOrCreate?: PesananCreateOrConnectWithoutBuktiBayarInput
+    upsert?: PesananUpsertWithoutBuktiBayarInput
+    connect?: PesananWhereUniqueInput
+    update?: XOR<PesananUpdateWithoutBuktiBayarInput, PesananUncheckedUpdateWithoutBuktiBayarInput>
   }
 
   export type NestedIntFilter = {
@@ -10156,6 +11425,48 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type NestedStringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableFilter | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+  }
+
+  export type NestedIntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | number | null
+    notIn?: Enumerable<number> | number | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
+  }
+
   export type AlamatCreateWithoutUserInput = {
     alamat: string
     gedung: string
@@ -10182,6 +11493,7 @@ export namespace Prisma {
     statusPesanan: string
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
+    BuktiBayar?: BuktiBayarCreateNestedOneWithoutPesananInput
   }
 
   export type PesananUncheckedCreateWithoutPembeliInput = {
@@ -10190,6 +11502,7 @@ export namespace Prisma {
     statusPesanan: string
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
     pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
+    BuktiBayar?: BuktiBayarUncheckedCreateNestedOneWithoutPesananInput
   }
 
   export type PesananCreateOrConnectWithoutPembeliInput = {
@@ -10453,13 +11766,13 @@ export namespace Prisma {
   export type PengirimanCreateWithoutPesananInput = {
     id?: number
     alamatPengiriman: string
-    Tanggal: Date | string
+    Tanggal?: Date | string
   }
 
   export type PengirimanUncheckedCreateWithoutPesananInput = {
     id?: number
     alamatPengiriman: string
-    Tanggal: Date | string
+    Tanggal?: Date | string
   }
 
   export type PengirimanCreateOrConnectWithoutPesananInput = {
@@ -10489,6 +11802,21 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutPembelianInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPembelianInput, UserUncheckedCreateWithoutPembelianInput>
+  }
+
+  export type BuktiBayarCreateWithoutPesananInput = {
+    id?: number
+    img?: string | null
+  }
+
+  export type BuktiBayarUncheckedCreateWithoutPesananInput = {
+    id?: number
+    img?: string | null
+  }
+
+  export type BuktiBayarCreateOrConnectWithoutPesananInput = {
+    where: BuktiBayarWhereUniqueInput
+    create: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
   }
 
   export type DetailPesananUpsertWithWhereUniqueWithoutPesananInput = {
@@ -10548,11 +11876,27 @@ export namespace Prisma {
     alamat?: AlamatUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type BuktiBayarUpsertWithoutPesananInput = {
+    update: XOR<BuktiBayarUpdateWithoutPesananInput, BuktiBayarUncheckedUpdateWithoutPesananInput>
+    create: XOR<BuktiBayarCreateWithoutPesananInput, BuktiBayarUncheckedCreateWithoutPesananInput>
+  }
+
+  export type BuktiBayarUpdateWithoutPesananInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BuktiBayarUncheckedUpdateWithoutPesananInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    img?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PesananCreateWithoutDetailPesananInput = {
     tanggalPesanan?: Date | string
     statusPesanan: string
     pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
     pembeli: UserCreateNestedOneWithoutPembelianInput
+    BuktiBayar?: BuktiBayarCreateNestedOneWithoutPesananInput
   }
 
   export type PesananUncheckedCreateWithoutDetailPesananInput = {
@@ -10561,6 +11905,7 @@ export namespace Prisma {
     statusPesanan: string
     pembeliId: number
     pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
+    BuktiBayar?: BuktiBayarUncheckedCreateNestedOneWithoutPesananInput
   }
 
   export type PesananCreateOrConnectWithoutDetailPesananInput = {
@@ -10602,6 +11947,7 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     pengiriman?: PengirimanUpdateOneWithoutPesananNestedInput
     pembeli?: UserUpdateOneRequiredWithoutPembelianNestedInput
+    BuktiBayar?: BuktiBayarUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananUncheckedUpdateWithoutDetailPesananInput = {
@@ -10610,6 +11956,7 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     pembeliId?: IntFieldUpdateOperationsInput | number
     pengiriman?: PengirimanUncheckedUpdateOneWithoutPesananNestedInput
+    BuktiBayar?: BuktiBayarUncheckedUpdateOneWithoutPesananNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutDetailPesInput = {
@@ -10633,6 +11980,7 @@ export namespace Prisma {
     statusPesanan: string
     DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
     pembeli: UserCreateNestedOneWithoutPembelianInput
+    BuktiBayar?: BuktiBayarCreateNestedOneWithoutPesananInput
   }
 
   export type PesananUncheckedCreateWithoutPengirimanInput = {
@@ -10641,6 +11989,7 @@ export namespace Prisma {
     statusPesanan: string
     pembeliId: number
     DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
+    BuktiBayar?: BuktiBayarUncheckedCreateNestedOneWithoutPesananInput
   }
 
   export type PesananCreateOrConnectWithoutPengirimanInput = {
@@ -10658,6 +12007,7 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     DetailPesanan?: DetailPesananUpdateManyWithoutPesananNestedInput
     pembeli?: UserUpdateOneRequiredWithoutPembelianNestedInput
+    BuktiBayar?: BuktiBayarUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananUncheckedUpdateWithoutPengirimanInput = {
@@ -10666,6 +12016,51 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     pembeliId?: IntFieldUpdateOperationsInput | number
     DetailPesanan?: DetailPesananUncheckedUpdateManyWithoutPesananNestedInput
+    BuktiBayar?: BuktiBayarUncheckedUpdateOneWithoutPesananNestedInput
+  }
+
+  export type PesananCreateWithoutBuktiBayarInput = {
+    tanggalPesanan?: Date | string
+    statusPesanan: string
+    DetailPesanan?: DetailPesananCreateNestedManyWithoutPesananInput
+    pengiriman?: PengirimanCreateNestedOneWithoutPesananInput
+    pembeli: UserCreateNestedOneWithoutPembelianInput
+  }
+
+  export type PesananUncheckedCreateWithoutBuktiBayarInput = {
+    id?: number
+    tanggalPesanan?: Date | string
+    statusPesanan: string
+    pembeliId: number
+    DetailPesanan?: DetailPesananUncheckedCreateNestedManyWithoutPesananInput
+    pengiriman?: PengirimanUncheckedCreateNestedOneWithoutPesananInput
+  }
+
+  export type PesananCreateOrConnectWithoutBuktiBayarInput = {
+    where: PesananWhereUniqueInput
+    create: XOR<PesananCreateWithoutBuktiBayarInput, PesananUncheckedCreateWithoutBuktiBayarInput>
+  }
+
+  export type PesananUpsertWithoutBuktiBayarInput = {
+    update: XOR<PesananUpdateWithoutBuktiBayarInput, PesananUncheckedUpdateWithoutBuktiBayarInput>
+    create: XOR<PesananCreateWithoutBuktiBayarInput, PesananUncheckedCreateWithoutBuktiBayarInput>
+  }
+
+  export type PesananUpdateWithoutBuktiBayarInput = {
+    tanggalPesanan?: DateTimeFieldUpdateOperationsInput | Date | string
+    statusPesanan?: StringFieldUpdateOperationsInput | string
+    DetailPesanan?: DetailPesananUpdateManyWithoutPesananNestedInput
+    pengiriman?: PengirimanUpdateOneWithoutPesananNestedInput
+    pembeli?: UserUpdateOneRequiredWithoutPembelianNestedInput
+  }
+
+  export type PesananUncheckedUpdateWithoutBuktiBayarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tanggalPesanan?: DateTimeFieldUpdateOperationsInput | Date | string
+    statusPesanan?: StringFieldUpdateOperationsInput | string
+    pembeliId?: IntFieldUpdateOperationsInput | number
+    DetailPesanan?: DetailPesananUncheckedUpdateManyWithoutPesananNestedInput
+    pengiriman?: PengirimanUncheckedUpdateOneWithoutPesananNestedInput
   }
 
   export type AlamatCreateManyUserInput = {
@@ -10702,6 +12097,7 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     DetailPesanan?: DetailPesananUpdateManyWithoutPesananNestedInput
     pengiriman?: PengirimanUpdateOneWithoutPesananNestedInput
+    BuktiBayar?: BuktiBayarUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananUncheckedUpdateWithoutPembeliInput = {
@@ -10710,6 +12106,7 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
     DetailPesanan?: DetailPesananUncheckedUpdateManyWithoutPesananNestedInput
     pengiriman?: PengirimanUncheckedUpdateOneWithoutPesananNestedInput
+    BuktiBayar?: BuktiBayarUncheckedUpdateOneWithoutPesananNestedInput
   }
 
   export type PesananUncheckedUpdateManyWithoutPembelianInput = {

@@ -9,7 +9,7 @@ export const authorized = async (ctx: Context, next: any) => {
     // const headers: Headers = ctx.request.headers
     // const authorized = headers.get('Authorization')
     const token = await ctx.cookies.get("token");
-    if (!token) return ctx.response.body = "Tidak ter autentikasi";
+    if (!token) return fresponse(401, null, "tidak terautentikasi", ctx.response)
 
     const payload = await verify(token, key);
     // if(!authorized) return fresponse(401, null, "tidak ter autentikasi", ctx.response)

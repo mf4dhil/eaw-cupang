@@ -1,49 +1,55 @@
-// deno-lint-ignore-file no-explicit-any
+// deno-lint-ignore-file 
 import { fresponse, prisma } from "../Response.ts";
 
-export const pemesanan = async (
+export const checkout = async (
   { response, request, state }: { response: any; request: any; state: any },
 ) => {
-  const userId = await state.user.payload.id;
+  const userId = await state.user.payload;
   const body = request.body({ type: "json" });
   const result = await body.value;
-  const { productId, jumlah, alamatPengiriman, statusPesanan } = result;
+  const { products, alamatPengiriman, statusPesanan } = result;
   try {
+    const maping =  products.map((item: any) => ({
+      jumlah: item.jumlah,
+      products: {
+        connect: {
+          id: item.id
+        }
+      }
+    }))
     const pesanan = await prisma.pesanan.create({
       data: {
+        pembeliId: userId.id,
         statusPesanan,
-        pembeli: {
-          connect: {
-            id: userId.id
-          }
-        },
         DetailPesanan: {
-          create: {
-            jumlah,
-            products: {
-              connect: {
-                id: productId
-              }
+            create: maping
+          },
+          pengiriman: {
+            create: {
+              alamatPengiriman
             }
           }
+        },
+        include: {
+          DetailPesanan: {
+            include: {
+              products: true,
+            },
+          },
+          pengiriman: true
         }
-      }
-    })
+      })
 
-    if(!pesanan) return fresponse(500, null, "internal server eror", response)
+    if (!pesanan) return fresponse(500, null, "internal server eror", response);
 
-    const pengiriman = await prisma.pengiriman.create({
-      data: {
-        alamatPengiriman,
-        Tanggal: pesanan.tanggalPesanan,
-        pesanan: {
-          connect: {
-            id: pesanan.id
-          }
-        }
-      }
-    })
+    fresponse(
+      201,
+      pesanan,
+      "berhasil checkout",
+      response,
+    );
   } catch (error) {
+    fresponse(500, null, error.message, response);
   }
 };
 
@@ -58,10 +64,13 @@ export const getPesanan = async (
         pembeliId: userId.id,
       },
       include: {
-        DetailPesanan: true,
-        _count: true,
-        pengiriman: true,
-      },
+        DetailPesanan: {
+          include: {
+            products: true
+          }
+        },
+        pengiriman: true
+      }
     });
 
     if (!pesanan) return fresponse(404, null, "data tidak tersedia", response);
@@ -73,16 +82,66 @@ export const getPesanan = async (
 };
 
 export const getPesananById = async (
-  { request, response }: { request: any; response: any },
+  { response, params }: { response: any, params:any },
 ) => {
+  const id: string = params.id
+  try {
+    const pesanan = await prisma.pesanan.findUnique({
+      where: {
+        id: Number(id)
+      },
+      include: {
+        DetailPesanan: {
+          include: {
+            products: true
+          }
+        },
+        pengiriman: true
+      }
+    })
+    if(!pesanan) return fresponse(404, null, "data tidak ditemukan", response)
+  } catch (error) {
+    fresponse(500, null, error.message, response)
+  }
 };
 
 export const updatePesanan = async (
-  { request, response }: { request: any; response: any },
+  { request, params, response }: { params: any; response: any; request:any; },
 ) => {
+  const id: string = params.id
+  try {
+    const body = request.body({ type: "json" });
+    const result = await body.value
+    const { statusPesanan } = result
+
+    const pesanan = await prisma.pesanan.update({
+      where: {
+        id: Number(id)
+      },
+      data: {
+        statusPesanan
+      },
+      include: {
+        DetailPesanan: {
+          include: {
+            products: true
+          }
+        },
+        pengiriman: true
+      }
+    })
+
+    if(!pesanan) return fresponse(500, null, "internal server eror", response)
+
+    fresponse(200, pesanan, "data berhasil diupdate", response)
+
+  } catch (error) {
+    fresponse(500, null, error.message, response)
+  }
 };
 
-export const deletePesanan = async (
-  { request, response }: { request: any; response: any },
-) => {
-};
+// export const deletePesanan = async (
+//   { request, response }: { request: any; response: any },
+// ) => {
+
+// };

@@ -5,6 +5,7 @@ import route from './src/routes/router.ts';
 import user from './src/routes/User.router.ts'
 import products from './src/routes/Products.router.ts'
 import category from './src/routes/Category.router.ts'
+import pemesnan from './src/routes/Pesanan.router.ts'
 
 const envVars = await load();
 const app = new Application()
@@ -17,6 +18,8 @@ app.use(products.routes());
 app.use(products.allowedMethods())
 app.use(category.routes());
 app.use(category.allowedMethods())
+app.use(pemesnan.routes());
+app.use(pemesnan.allowedMethods())
 // app.use(user.)
 
 

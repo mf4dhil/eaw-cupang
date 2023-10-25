@@ -54,6 +54,7 @@ model Pesanan {
   DetailPesanan  DetailPesanan[]
   pengiriman     Pengiriman?
   pembeli        User            @relation(fields: [pembeliId], references: [id])
+  BuktiBayar     BuktiBayar?
 }
 
 model DetailPesanan {
@@ -65,9 +66,16 @@ model DetailPesanan {
 }
 
 model Pengiriman {
-  id               Int @default(autoincrement())
+  id               Int      @default(autoincrement())
   pesananId        Int      @unique
   alamatPengiriman String
-  Tanggal          DateTime 
+  Tanggal          DateTime @default(now())
   pesanan          Pesanan  @relation(fields: [pesananId], references: [id])
+}
+
+model BuktiBayar {
+  id        Int     @default(autoincrement())
+  pesananId Int     @unique
+  img       String?
+  pesanan   Pesanan @relation(fields: [pesananId], references: [id])
 }

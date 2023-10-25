@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Pengiriman" ALTER COLUMN "Tanggal" SET DEFAULT CURRENT_TIMESTAMP;
