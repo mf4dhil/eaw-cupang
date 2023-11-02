@@ -36,7 +36,8 @@ export const checkout = async (
               products: true,
             },
           },
-          pengiriman: true
+          pengiriman: true,
+          BuktiBayar: true,
         }
       })
 
@@ -69,7 +70,8 @@ export const getPesanan = async (
             products: true
           }
         },
-        pengiriman: true
+        pengiriman: true,
+        BuktiBayar: true
       }
     });
 
@@ -96,7 +98,8 @@ export const getPesananById = async (
             products: true
           }
         },
-        pengiriman: true
+        pengiriman: true,
+        BuktiBayar: true
       }
     })
     if(!pesanan) return fresponse(404, null, "data tidak ditemukan", response)

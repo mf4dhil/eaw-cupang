@@ -1,23 +1,22 @@
 // deno-lint-ignore-file no-explicit-any
 import { fresponse, prisma } from "../Response.ts";
 
-
 export const getProduct = async (
   { request, response }: { request: any; response: any },
 ) => {
   const page = request.url.searchParams.get("page");
-  const pageSize = Number(request.url.searchParams.get("pageSize")|| "12");
+  const pageSize = Number(request.url.searchParams.get("pageSize") || "12");
 
-  const ofsett = page ? (Number(page)- 1) * pageSize : 0;
+  const ofsett = page ? (Number(page) - 1) * pageSize : 0;
 
   try {
     const products = await prisma.product.findMany({
       take: pageSize,
-      skip: ofsett
-    })
+      skip: ofsett,
+    });
 
     const totalCount = await prisma.product.count();
-    const totalPages = Math.ceil(totalCount / pageSize)
+    const totalPages = Math.ceil(totalCount / pageSize);
 
     const metadata = {
       current: page || "1",
@@ -25,45 +24,45 @@ export const getProduct = async (
       next: Number(page) < totalPages ? String(Number(page) + 1) : undefined,
     };
 
-    if(!products) return fresponse(404, null, "product tidak ada", response)
+    if (!products) return fresponse(404, null, "product tidak ada", response);
 
-    fresponse(200, products, "Ok", response, metadata)
-
+    fresponse(200, products, "Ok", response, metadata);
   } catch (error) {
-    fresponse(500, null, error.message, response)
+    fresponse(500, null, error.message, response);
   }
-
 };
 export const getProductById = async (
-  { response, params }: { request: any; response: any, params:any; },
+  { response, params }: { request: any; response: any; params: any },
 ) => {
-  const paramsId: string = params.id
+  const paramsId: string = params.id;
   try {
     const product = await prisma.product.findUnique({
       where: {
-        id: Number(paramsId)
-      }
-    })
-    if(product) return fresponse(404, null, "product tidak ditemukan", response)
-    fresponse(200, product, "ok", response)
+        id: Number(paramsId),
+      },
+    });
+    if (product) {
+      return fresponse(404, null, "product tidak ditemukan", response);
+    }
+    fresponse(200, product, "ok", response);
   } catch (error) {
-    fresponse(500, null, error.message, response)
+    fresponse(500, null, error.message, response);
   }
 };
 
 export const creteProduct = async (
-  { request, response }: { request: any; response: any; },
+  { request, response }: { request: any; response: any },
 ) => {
-  const body = request.body({type: "json"})
-  const result = await body.value
-  const { 
+  const body = request.body({ type: "json" });
+  const result = await body.value;
+  const {
     nama,
     desc,
     img,
     harga,
     stock,
-    categoryId
-  } = result
+    categoryId,
+  } = result;
 
   try {
     const product = await prisma.product.create({
@@ -75,73 +74,94 @@ export const creteProduct = async (
         stock,
         category: {
           connect: {
-            id: categoryId
-          }
-        }
+            id: categoryId,
+          },
+        },
       },
-
-    })
-    fresponse(201, product, "Product created successfully!", response)
+    });
+    fresponse(201, product, "Product created successfully!", response);
   } catch (error) {
-    fresponse(500, null, error.message, response)
+    fresponse(500, null, error.message, response);
   }
 };
 
 export const updateProduct = async (
-  { request, response, params }: { request:any; response: any; params:any },
+  { request, response, params }: { request: any; response: any; params: any },
 ) => {
-  const id: string = params.id
-try {
-  const product = await prisma.product.findUnique({
-    where: {
-      id: Number(id)
-    }
-  })
-  if(!product) return fresponse(404, null, "Film tidak ditemukan", response)
-  const body = request.body({type: "json"})
-  const result = await body.value
-  const {
-    nama,
-    desc,
-    img,
-    harga,
-    stock,
-    category
-  } = result
-
-  const executeUpdate = prisma.product.update({
-    where: {
-      id: Number(id)
-    },
-    data: {
+  const id: string = params.id;
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+    if (!product) return fresponse(404, null, "Film tidak ditemukan", response);
+    const body = request.body({ type: "json" });
+    const result = await body.value;
+    const {
       nama,
       desc,
       img,
       harga,
       stock,
-      category: {connect: { id: category }}
-    }
-  })
+      category,
+    } = result;
 
-  fresponse(200, executeUpdate, "Product berhasil diperbaharui", response)
+    const executeUpdate = prisma.product.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        nama,
+        desc,
+        img,
+        harga,
+        stock,
+        category: { connect: { id: category } },
+      },
+    });
 
-} catch (error) {
-  fresponse(500, null, error.message, response)
-}
+    fresponse(200, executeUpdate, "Product berhasil diperbaharui", response);
+  } catch (error) {
+    fresponse(500, null, error.message, response);
+  }
 };
 
 export const deleteProduct = async (
-  { response, params }: { response: any; params: any; },
+  { response, params }: { response: any; params: any },
 ) => {
-  const id: string = params.id
+  const id: string = params.id;
   try {
     await prisma.product.delete({
       where: {
-        id: Number(id)
-      }
-    })
-    fresponse(201, null, "Berhasil Menghapus data!", response)
+        id: Number(id),
+      },
+    });
+    fresponse(201, null, "Berhasil Menghapus data!", response);
   } catch (error) {
-    fresponse(500, null, error.message, response)
+    fresponse(500, null, error.message, response);
   }
 };
+
+// export const getProductByCategory = async (
+//   { request, response }: { request: any; response: any; },
+// ) => {
+//   const params = request.url.searchParams;
+//   const ctgr: string = params.get("category")
+//   try {
+//     const category = await prisma.category.findMany({
+//       where: {
+//         nama: ctgr
+//       },
+//       include: {
+//         product: true,
+//         _count: true
+//       }
+//     })
+//     if(!category) return fresponse(500, null, "internal server eror", response)
+
+//     fresponse(200, category, `Get data by ${ctgr}`, response)
+//   } catch (error) {
+//     fresponse(500, null, error.message, response)
+//   }
+// };

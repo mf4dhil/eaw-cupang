@@ -162,6 +162,17 @@ exports.Prisma.BuktiBayarScalarFieldEnum = {
   img: 'img'
 };
 
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id'
+};
+
+exports.Prisma.CartItemScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  productId: 'productId',
+  cartId: 'cartId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -186,7 +197,9 @@ exports.Prisma.ModelName = {
   Pesanan: 'Pesanan',
   DetailPesanan: 'DetailPesanan',
   Pengiriman: 'Pengiriman',
-  BuktiBayar: 'BuktiBayar'
+  BuktiBayar: 'BuktiBayar',
+  Cart: 'Cart',
+  CartItem: 'CartItem'
 };
 
 /**
