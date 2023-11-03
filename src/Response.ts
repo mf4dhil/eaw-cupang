@@ -27,7 +27,7 @@ export const fresponse = <T>(
     metadata: metadata,
   };
   res.status = status_code;
-  res.body = [apiResponse];
+  res.body = apiResponse;
 };
 
 const envVars = await load();
@@ -39,4 +39,3 @@ export const prisma = new PrismaClient({
     },
   },
 });
-

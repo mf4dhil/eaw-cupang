@@ -163,7 +163,8 @@ exports.Prisma.BuktiBayarScalarFieldEnum = {
 };
 
 exports.Prisma.CartScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  userId: 'userId'
 };
 
 exports.Prisma.CartItemScalarFieldEnum = {
