@@ -6,6 +6,7 @@ import user from './src/routes/User.router.ts'
 import products from './src/routes/Products.router.ts'
 import category from './src/routes/Category.router.ts'
 import pemesnan from './src/routes/Pesanan.router.ts'
+import carts from "./src/routes/Cart.router.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 const envVars = await load();
@@ -23,9 +24,8 @@ app.use(category.routes());
 app.use(category.allowedMethods())
 app.use(pemesnan.routes());
 app.use(pemesnan.allowedMethods())
-// app.use(user.)
-
-
+app.use(carts.routes())
+app.use(carts.allowedMethods())
 
 console.log(`Server Running att http://127.0.0.1:${envVars.PORT}`)
 
