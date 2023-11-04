@@ -74,7 +74,7 @@ export type Category = runtime.Types.DefaultSelection<CategoryPayload>
 export type ProductPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
   name: "Product"
   objects: {
-    category: CategoryPayload<ExtArgs>
+    category: CategoryPayload<ExtArgs>[]
     detailPes: DetailPesananPayload<ExtArgs>[]
     CartItem: CartItemPayload<ExtArgs>[]
   }
@@ -1861,11 +1861,13 @@ export namespace Prisma {
 
 
   export type ProductCountOutputType = {
+    category: number
     detailPes: number
     CartItem: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    category?: boolean | ProductCountOutputTypeCountCategoryArgs
     detailPes?: boolean | ProductCountOutputTypeCountDetailPesArgs
     CartItem?: boolean | ProductCountOutputTypeCountCartItemArgs
   }
@@ -1880,6 +1882,14 @@ export namespace Prisma {
      * Select specific fields to fetch from the ProductCountOutputType
      */
     select?: ProductCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountCategoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
   }
 
 
@@ -5163,7 +5173,7 @@ export namespace Prisma {
     harga?: boolean
     stock?: boolean
     categoryId?: boolean
-    category?: boolean | CategoryArgs<ExtArgs>
+    category?: boolean | Product$categoryArgs<ExtArgs>
     detailPes?: boolean | Product$detailPesArgs<ExtArgs>
     CartItem?: boolean | Product$CartItemArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeArgs<ExtArgs>
@@ -5180,7 +5190,7 @@ export namespace Prisma {
   }
 
   export type ProductInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryArgs<ExtArgs>
+    category?: boolean | Product$categoryArgs<ExtArgs>
     detailPes?: boolean | Product$detailPesArgs<ExtArgs>
     CartItem?: boolean | Product$CartItemArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeArgs<ExtArgs>
@@ -5556,7 +5566,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    category<T extends CategoryArgs<ExtArgs> = {}>(args?: Subset<T, CategoryArgs<ExtArgs>>): Prisma__CategoryClient<$Types.GetResult<CategoryPayload<ExtArgs>, T, 'findUnique', never> | Null, never, ExtArgs>;
+    category<T extends Product$categoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$categoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<CategoryPayload<ExtArgs>, T, 'findMany', never>| Null>;
 
     detailPes<T extends Product$detailPesArgs<ExtArgs> = {}>(args?: Subset<T, Product$detailPesArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<DetailPesananPayload<ExtArgs>, T, 'findMany', never>| Null>;
 
@@ -5914,6 +5924,27 @@ export namespace Prisma {
      * Filter which Products to delete
      */
     where?: ProductWhereInput
+  }
+
+
+  /**
+   * Product.category
+   */
+  export type Product$categoryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    where?: CategoryWhereInput
+    orderBy?: Enumerable<CategoryOrderByWithRelationInput>
+    cursor?: CategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<CategoryScalarFieldEnum>
   }
 
 
@@ -12056,7 +12087,7 @@ export namespace Prisma {
     harga?: IntFilter | number
     stock?: IntFilter | number
     categoryId?: IntFilter | number
-    category?: XOR<CategoryRelationFilter, CategoryWhereInput>
+    category?: CategoryListRelationFilter
     detailPes?: DetailPesananListRelationFilter
     CartItem?: CartItemListRelationFilter
   }
@@ -12069,7 +12100,7 @@ export namespace Prisma {
     harga?: SortOrder
     stock?: SortOrder
     categoryId?: SortOrder
-    category?: CategoryOrderByWithRelationInput
+    category?: CategoryOrderByRelationAggregateInput
     detailPes?: DetailPesananOrderByRelationAggregateInput
     CartItem?: CartItemOrderByRelationAggregateInput
   }
@@ -12532,7 +12563,8 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    category: CategoryCreateNestedOneWithoutProductInput
+    categoryId: number
+    category?: CategoryCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
   }
@@ -12545,6 +12577,7 @@ export namespace Prisma {
     harga: number
     stock: number
     categoryId: number
+    category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -12555,7 +12588,8 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    category?: CategoryUpdateOneRequiredWithoutProductNestedInput
+    categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
   }
@@ -12568,6 +12602,7 @@ export namespace Prisma {
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -12588,6 +12623,7 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -13057,9 +13093,10 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type CategoryRelationFilter = {
-    is?: CategoryWhereInput | null
-    isNot?: CategoryWhereInput | null
+  export type CategoryListRelationFilter = {
+    every?: CategoryWhereInput
+    some?: CategoryWhereInput
+    none?: CategoryWhereInput
   }
 
   export type DetailPesananListRelationFilter = {
@@ -13072,6 +13109,10 @@ export namespace Prisma {
     every?: CartItemWhereInput
     some?: CartItemWhereInput
     none?: CartItemWhereInput
+  }
+
+  export type CategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type DetailPesananOrderByRelationAggregateInput = {
@@ -13561,14 +13602,12 @@ export namespace Prisma {
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
-    createMany?: ProductCreateManyCategoryInputEnvelope
     connect?: Enumerable<ProductWhereUniqueInput>
   }
 
   export type ProductUncheckedCreateNestedManyWithoutCategoryInput = {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
-    createMany?: ProductCreateManyCategoryInputEnvelope
     connect?: Enumerable<ProductWhereUniqueInput>
   }
 
@@ -13576,7 +13615,6 @@ export namespace Prisma {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
     upsert?: Enumerable<ProductUpsertWithWhereUniqueWithoutCategoryInput>
-    createMany?: ProductCreateManyCategoryInputEnvelope
     set?: Enumerable<ProductWhereUniqueInput>
     disconnect?: Enumerable<ProductWhereUniqueInput>
     delete?: Enumerable<ProductWhereUniqueInput>
@@ -13590,7 +13628,6 @@ export namespace Prisma {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
     upsert?: Enumerable<ProductUpsertWithWhereUniqueWithoutCategoryInput>
-    createMany?: ProductCreateManyCategoryInputEnvelope
     set?: Enumerable<ProductWhereUniqueInput>
     disconnect?: Enumerable<ProductWhereUniqueInput>
     delete?: Enumerable<ProductWhereUniqueInput>
@@ -13600,10 +13637,10 @@ export namespace Prisma {
     deleteMany?: Enumerable<ProductScalarWhereInput>
   }
 
-  export type CategoryCreateNestedOneWithoutProductInput = {
-    create?: XOR<CategoryCreateWithoutProductInput, CategoryUncheckedCreateWithoutProductInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutProductInput
-    connect?: CategoryWhereUniqueInput
+  export type CategoryCreateNestedManyWithoutProductInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutProductInput>, Enumerable<CategoryUncheckedCreateWithoutProductInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutProductInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
   }
 
   export type DetailPesananCreateNestedManyWithoutProductsInput = {
@@ -13619,6 +13656,12 @@ export namespace Prisma {
     connect?: Enumerable<CartItemWhereUniqueInput>
   }
 
+  export type CategoryUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutProductInput>, Enumerable<CategoryUncheckedCreateWithoutProductInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutProductInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+  }
+
   export type DetailPesananUncheckedCreateNestedManyWithoutProductsInput = {
     create?: XOR<Enumerable<DetailPesananCreateWithoutProductsInput>, Enumerable<DetailPesananUncheckedCreateWithoutProductsInput>>
     connectOrCreate?: Enumerable<DetailPesananCreateOrConnectWithoutProductsInput>
@@ -13632,12 +13675,17 @@ export namespace Prisma {
     connect?: Enumerable<CartItemWhereUniqueInput>
   }
 
-  export type CategoryUpdateOneRequiredWithoutProductNestedInput = {
-    create?: XOR<CategoryCreateWithoutProductInput, CategoryUncheckedCreateWithoutProductInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutProductInput
-    upsert?: CategoryUpsertWithoutProductInput
-    connect?: CategoryWhereUniqueInput
-    update?: XOR<CategoryUpdateWithoutProductInput, CategoryUncheckedUpdateWithoutProductInput>
+  export type CategoryUpdateManyWithoutProductNestedInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutProductInput>, Enumerable<CategoryUncheckedCreateWithoutProductInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutProductInput>
+    upsert?: Enumerable<CategoryUpsertWithWhereUniqueWithoutProductInput>
+    set?: Enumerable<CategoryWhereUniqueInput>
+    disconnect?: Enumerable<CategoryWhereUniqueInput>
+    delete?: Enumerable<CategoryWhereUniqueInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+    update?: Enumerable<CategoryUpdateWithWhereUniqueWithoutProductInput>
+    updateMany?: Enumerable<CategoryUpdateManyWithWhereWithoutProductInput>
+    deleteMany?: Enumerable<CategoryScalarWhereInput>
   }
 
   export type DetailPesananUpdateManyWithoutProductsNestedInput = {
@@ -13665,6 +13713,19 @@ export namespace Prisma {
     update?: Enumerable<CartItemUpdateWithWhereUniqueWithoutProductInput>
     updateMany?: Enumerable<CartItemUpdateManyWithWhereWithoutProductInput>
     deleteMany?: Enumerable<CartItemScalarWhereInput>
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutProductInput>, Enumerable<CategoryUncheckedCreateWithoutProductInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutProductInput>
+    upsert?: Enumerable<CategoryUpsertWithWhereUniqueWithoutProductInput>
+    set?: Enumerable<CategoryWhereUniqueInput>
+    disconnect?: Enumerable<CategoryWhereUniqueInput>
+    delete?: Enumerable<CategoryWhereUniqueInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+    update?: Enumerable<CategoryUpdateWithWhereUniqueWithoutProductInput>
+    updateMany?: Enumerable<CategoryUpdateManyWithWhereWithoutProductInput>
+    deleteMany?: Enumerable<CategoryScalarWhereInput>
   }
 
   export type DetailPesananUncheckedUpdateManyWithoutProductsNestedInput = {
@@ -14345,6 +14406,7 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
+    categoryId: number
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
   }
@@ -14356,6 +14418,7 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
+    categoryId: number
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -14363,11 +14426,6 @@ export namespace Prisma {
   export type ProductCreateOrConnectWithoutCategoryInput = {
     where: ProductWhereUniqueInput
     create: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type ProductCreateManyCategoryInputEnvelope = {
-    data: Enumerable<ProductCreateManyCategoryInput>
-    skipDuplicates?: boolean
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -14450,18 +14508,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CategoryUpsertWithoutProductInput = {
+  export type CategoryUpsertWithWhereUniqueWithoutProductInput = {
+    where: CategoryWhereUniqueInput
     update: XOR<CategoryUpdateWithoutProductInput, CategoryUncheckedUpdateWithoutProductInput>
     create: XOR<CategoryCreateWithoutProductInput, CategoryUncheckedCreateWithoutProductInput>
   }
 
-  export type CategoryUpdateWithoutProductInput = {
-    nama?: StringFieldUpdateOperationsInput | string
+  export type CategoryUpdateWithWhereUniqueWithoutProductInput = {
+    where: CategoryWhereUniqueInput
+    data: XOR<CategoryUpdateWithoutProductInput, CategoryUncheckedUpdateWithoutProductInput>
   }
 
-  export type CategoryUncheckedUpdateWithoutProductInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nama?: StringFieldUpdateOperationsInput | string
+  export type CategoryUpdateManyWithWhereWithoutProductInput = {
+    where: CategoryScalarWhereInput
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type CategoryScalarWhereInput = {
+    AND?: Enumerable<CategoryScalarWhereInput>
+    OR?: Enumerable<CategoryScalarWhereInput>
+    NOT?: Enumerable<CategoryScalarWhereInput>
+    id?: IntFilter | number
+    nama?: StringFilter | string
   }
 
   export type DetailPesananUpsertWithWhereUniqueWithoutProductsInput = {
@@ -14696,7 +14764,8 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    category: CategoryCreateNestedOneWithoutProductInput
+    categoryId: number
+    category?: CategoryCreateNestedManyWithoutProductInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
   }
 
@@ -14708,6 +14777,7 @@ export namespace Prisma {
     harga: number
     stock: number
     categoryId: number
+    category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -14937,7 +15007,8 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    category: CategoryCreateNestedOneWithoutProductInput
+    categoryId: number
+    category?: CategoryCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
   }
 
@@ -14949,6 +15020,7 @@ export namespace Prisma {
     harga: number
     stock: number
     categoryId: number
+    category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
   }
 
@@ -14982,7 +15054,8 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    category?: CategoryUpdateOneRequiredWithoutProductNestedInput
+    categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
   }
 
@@ -14994,6 +15067,7 @@ export namespace Prisma {
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
   }
 
@@ -15063,21 +15137,13 @@ export namespace Prisma {
     statusPesanan?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProductCreateManyCategoryInput = {
-    id?: number
-    nama: string
-    desc: string
-    img: string
-    harga: number
-    stock: number
-  }
-
   export type ProductUpdateWithoutCategoryInput = {
     nama?: StringFieldUpdateOperationsInput | string
     desc?: StringFieldUpdateOperationsInput | string
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
   }
@@ -15089,6 +15155,7 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -15100,12 +15167,27 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CartItemCreateManyProductInput = {
     id?: number
     quantity: number
     cartId: number
+  }
+
+  export type CategoryUpdateWithoutProductInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
   }
 
   export type DetailPesananUpdateWithoutProductsInput = {
@@ -15169,7 +15251,8 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    category?: CategoryUpdateOneRequiredWithoutProductNestedInput
+    categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUpdateManyWithoutProductNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
   }
 
@@ -15181,6 +15264,7 @@ export namespace Prisma {
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
+    category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
 

@@ -43,7 +43,7 @@ model Product {
   harga      Int
   stock      Int
   categoryId Int
-  category   Category        @relation(fields: [categoryId], references: [id])
+  category   Category[]
   detailPes  DetailPesanan[] @relation("DetailPesananToProduct")
   CartItem   CartItem[]
 }

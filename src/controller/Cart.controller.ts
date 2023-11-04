@@ -139,7 +139,7 @@ export const deleteItemCart = async (
   { request, response, state }: { request: any; response: any; state:any; },
 ) => {
   const userId = await state.user.payload
-  
+
   const body = request.body({type: "json"})
   const result = await body.value
   const { productId } = result;
