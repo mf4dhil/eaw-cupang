@@ -13,6 +13,9 @@ export const getProduct = async (
     const products = await prisma.product.findMany({
       take: pageSize,
       skip: ofsett,
+      include: {
+        category: true
+      }
     });
 
     const totalCount = await prisma.product.count();
@@ -22,6 +25,7 @@ export const getProduct = async (
       current: page || "1",
       prev: Number(page) > 1 ? String(Number(page) - 1) : undefined,
       next: Number(page) < totalPages ? String(Number(page) + 1) : undefined,
+      pageCount: totalPages
     };
 
     if (!products) return fresponse(404, null, "product tidak ada", response);
@@ -40,8 +44,11 @@ export const getProductById = async (
       where: {
         id: Number(paramsId),
       },
+      include: {
+        category: true
+      }
     });
-    if (product) {
+    if (!product) {
       return fresponse(404, null, "product tidak ditemukan", response);
     }
     fresponse(200, product, "ok", response);
@@ -63,21 +70,27 @@ export const creteProduct = async (
     stock,
     categoryId,
   } = result;
-
+  
   try {
+    // const id = categoryId.map((ctgr: any) => (
+    //   ctgr.id
+    // ));
+    // console.log(id.id)
     const product = await prisma.product.create({
       data: {
         nama,
+        harga,
         desc,
         img,
-        harga,
         stock,
         category: {
-          connect: {
-            id: categoryId,
-          },
-        },
+          connect: categoryId.map((genreId: number) => ({ id: genreId }))
+          
+        }
       },
+      include: {
+        category: true
+      }
     });
     fresponse(201, product, "Product created successfully!", response);
   } catch (error) {
@@ -104,7 +117,7 @@ export const updateProduct = async (
       img,
       harga,
       stock,
-      category,
+      categoryId,
     } = result;
 
     const executeUpdate = prisma.product.update({
@@ -117,8 +130,11 @@ export const updateProduct = async (
         img,
         harga,
         stock,
-        category: { connect: { id: category } },
+        category: { connect: categoryId.map((genreId: number) => ({ id: genreId })) },
       },
+      include: {
+        category: true
+      }
     });
 
     fresponse(200, executeUpdate, "Product berhasil diperbaharui", response);

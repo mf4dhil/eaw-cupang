@@ -42,7 +42,6 @@ model Product {
   img        String
   harga      Int
   stock      Int
-  categoryId Int
   category   Category[]
   detailPes  DetailPesanan[] @relation("DetailPesananToProduct")
   CartItem   CartItem[]

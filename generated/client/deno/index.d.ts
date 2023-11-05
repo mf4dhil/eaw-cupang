@@ -85,7 +85,6 @@ export type ProductPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     img: string
     harga: number
     stock: number
-    categoryId: number
   }, ExtArgs["result"]["product"]>
   composites: {}
 }
@@ -4962,14 +4961,12 @@ export namespace Prisma {
     id: number | null
     harga: number | null
     stock: number | null
-    categoryId: number | null
   }
 
   export type ProductSumAggregateOutputType = {
     id: number | null
     harga: number | null
     stock: number | null
-    categoryId: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -4979,7 +4976,6 @@ export namespace Prisma {
     img: string | null
     harga: number | null
     stock: number | null
-    categoryId: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -4989,7 +4985,6 @@ export namespace Prisma {
     img: string | null
     harga: number | null
     stock: number | null
-    categoryId: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -4999,7 +4994,6 @@ export namespace Prisma {
     img: number
     harga: number
     stock: number
-    categoryId: number
     _all: number
   }
 
@@ -5008,14 +5002,12 @@ export namespace Prisma {
     id?: true
     harga?: true
     stock?: true
-    categoryId?: true
   }
 
   export type ProductSumAggregateInputType = {
     id?: true
     harga?: true
     stock?: true
-    categoryId?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -5025,7 +5017,6 @@ export namespace Prisma {
     img?: true
     harga?: true
     stock?: true
-    categoryId?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -5035,7 +5026,6 @@ export namespace Prisma {
     img?: true
     harga?: true
     stock?: true
-    categoryId?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -5045,7 +5035,6 @@ export namespace Prisma {
     img?: true
     harga?: true
     stock?: true
-    categoryId?: true
     _all?: true
   }
 
@@ -5143,7 +5132,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -5172,7 +5160,6 @@ export namespace Prisma {
     img?: boolean
     harga?: boolean
     stock?: boolean
-    categoryId?: boolean
     category?: boolean | Product$categoryArgs<ExtArgs>
     detailPes?: boolean | Product$detailPesArgs<ExtArgs>
     CartItem?: boolean | Product$CartItemArgs<ExtArgs>
@@ -5186,7 +5173,6 @@ export namespace Prisma {
     img?: boolean
     harga?: boolean
     stock?: boolean
-    categoryId?: boolean
   }
 
   export type ProductInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -11843,8 +11829,7 @@ export namespace Prisma {
     desc: 'desc',
     img: 'img',
     harga: 'harga',
-    stock: 'stock',
-    categoryId: 'categoryId'
+    stock: 'stock'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -12086,7 +12071,6 @@ export namespace Prisma {
     img?: StringFilter | string
     harga?: IntFilter | number
     stock?: IntFilter | number
-    categoryId?: IntFilter | number
     category?: CategoryListRelationFilter
     detailPes?: DetailPesananListRelationFilter
     CartItem?: CartItemListRelationFilter
@@ -12099,7 +12083,6 @@ export namespace Prisma {
     img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
     category?: CategoryOrderByRelationAggregateInput
     detailPes?: DetailPesananOrderByRelationAggregateInput
     CartItem?: CartItemOrderByRelationAggregateInput
@@ -12116,7 +12099,6 @@ export namespace Prisma {
     img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -12134,7 +12116,6 @@ export namespace Prisma {
     img?: StringWithAggregatesFilter | string
     harga?: IntWithAggregatesFilter | number
     stock?: IntWithAggregatesFilter | number
-    categoryId?: IntWithAggregatesFilter | number
   }
 
   export type PesananWhereInput = {
@@ -12563,7 +12544,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
@@ -12576,7 +12556,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
@@ -12588,7 +12567,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
@@ -12601,7 +12579,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
@@ -12614,7 +12591,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -12623,7 +12599,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -12633,7 +12608,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PesananCreateInput = {
@@ -13130,14 +13104,12 @@ export namespace Prisma {
     img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
     id?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -13147,7 +13119,6 @@ export namespace Prisma {
     img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -13157,14 +13128,12 @@ export namespace Prisma {
     img?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
     id?: SortOrder
     harga?: SortOrder
     stock?: SortOrder
-    categoryId?: SortOrder
   }
 
   export type DateTimeFilter = {
@@ -14406,7 +14375,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
   }
@@ -14418,7 +14386,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -14454,7 +14421,6 @@ export namespace Prisma {
     img?: StringFilter | string
     harga?: IntFilter | number
     stock?: IntFilter | number
-    categoryId?: IntFilter | number
   }
 
   export type CategoryCreateWithoutProductInput = {
@@ -14764,7 +14730,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryCreateNestedManyWithoutProductInput
     CartItem?: CartItemCreateNestedManyWithoutProductInput
   }
@@ -14776,7 +14741,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     CartItem?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -15007,7 +14971,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananCreateNestedManyWithoutProductsInput
   }
@@ -15019,7 +14982,6 @@ export namespace Prisma {
     img: string
     harga: number
     stock: number
-    categoryId: number
     category?: CategoryUncheckedCreateNestedManyWithoutProductInput
     detailPes?: DetailPesananUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -15054,7 +15016,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
   }
@@ -15066,7 +15027,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -15143,7 +15103,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
   }
@@ -15155,7 +15114,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     detailPes?: DetailPesananUncheckedUpdateManyWithoutProductsNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -15167,7 +15125,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CartItemCreateManyProductInput = {
@@ -15251,7 +15208,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateManyWithoutProductNestedInput
     CartItem?: CartItemUpdateManyWithoutProductNestedInput
   }
@@ -15263,7 +15219,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
     category?: CategoryUncheckedUpdateManyWithoutProductNestedInput
     CartItem?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -15275,7 +15230,6 @@ export namespace Prisma {
     img?: StringFieldUpdateOperationsInput | string
     harga?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CartItemCreateManyCartInput = {

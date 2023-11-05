@@ -65,7 +65,11 @@ export const getProductByCategory = async (ctx: Context, next: any) => {
         nama: ctgr,
       },
       include: {
-        product: true,
+        product: {
+          include : {
+            category: true
+          }
+        },
         _count: true,
       },
     });
