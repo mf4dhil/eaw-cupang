@@ -39,3 +39,12 @@ export const prisma = new PrismaClient({
     },
   },
 });
+
+import { Session } from "https://deno.land/x/oak_sessions@v4.1.11/mod.ts";
+
+export type AppState = {
+  session: Session
+}
+
+
+

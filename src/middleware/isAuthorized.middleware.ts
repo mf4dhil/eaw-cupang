@@ -9,20 +9,52 @@ export const authorized = async (ctx: Context, next: any) => {
   try {
     // const headers: Headers = ctx.request.headers
     // const authorized = headers.get('Authorization')
-    const token = await ctx.cookies.get("token");
+    // const username = await ctx.state.session.get("username")
+    // if (!username) {
+    //   return fresponse(401, null, "tidak terautentikasi", ctx.response);
+    // }
+
+    // const payload = await prisma.user.findUnique({
+    //   where: {
+    //     username: username
+    //   }
+    // })
+
+    const token =  ctx.state.username
+
+    console.log(token)
     if (!token) {
-      return fresponse(401, null, "tidak terautentikasi", ctx.response);
+      return fresponse(401, null, "acc tidak terautentikasi", ctx.response);
     }
 
-    const payload = await verify(token, key);
+    // const payload = await verify(token, key);
+
+    const payload = await prisma.user.findUnique({
+      where: {
+        username: token
+      },
+      select: {
+            id: true,
+            nama: true,
+            username: true,
+            email: true,
+            role: true
+          }
+    })
+
+    console.log(payload)
+
+    if(!payload) return fresponse(401, null, "tidak terautentikasi", ctx.response)
+
+    // const payload = await verify(token, key);
     // if(!authorized) return fresponse(401, null, "tidak ter autentikasi", ctx.response)
     // const jwt = authorized.split(' ')[1]
 
     // if(!jwt) return fresponse(401, null, "tidak ter autentikasii", ctx.response)
 
     // const payload = await verify(jwt,key)
-    if (!payload) return new Error("!payload");
-    ctx.state.user = payload;
+    // if (!payload) return new Error("!payload");
+    ctx.state = payload;
 
     await next();
   } catch (error) {
@@ -82,3 +114,42 @@ export const getProductByCategory = async (ctx: Context, next: any) => {
     fresponse(500, null, error.message, ctx.response);
   }
 };
+
+export const me = async (ctx: Context, next:any) => {
+  try {
+    const token = ctx.response.headers.getSetCookie()
+    if (!token) {
+      return fresponse(401, null, "tidak terautentikasi", ctx.response);
+    }
+    console.log("Token Me:",token)
+    // const cek = await prisma.user.findUnique({
+    //   where: {
+    //     id: token.
+    //   },
+    //   select: {
+    //     id: true,
+    //     nama: true,
+    //     username: true,
+    //     email: true,
+    //     role: true
+    //   }
+    // });
+
+    // ctx.cookies.set("token", jwt, {
+    //   httpOnly: true,
+    //   maxAge: 3600000,
+    //   secure: true,
+    //   signed: true,
+      
+    // })
+
+    // ctx.state.session.set("username", )
+
+    // if(!cek) return fresponse(401, null, "anda belum login", ctx.response)
+
+    // fresponse(200, cek, "user ditemukan", ctx.response)
+
+  } catch (error) {
+    fresponse(500, null, error.message, ctx.response)
+  }
+}

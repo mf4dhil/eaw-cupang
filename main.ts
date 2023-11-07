@@ -9,11 +9,41 @@ import pemesnan from './src/routes/Pesanan.router.ts'
 import carts from "./src/routes/Cart.router.ts"
 import img from "./src/routes/Img.router.ts"
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
+import { oakSession, SessionOptions } from "https://deno.land/x/oak_session/mod.ts";
+import { PrismaSessionStore } from 'npm:@quixo3/prisma-session-store';
+
+// import {  CookieStore, Session } from "https://deno.land/x/oak_sessions@v4.1.11/mod.ts";
+import { AppState } from "./src/Response.ts";
+import { PrismaClient } from "./generated/client/index.js";
+
+
 
 const envVars = await load();
-const app = new Application()
+const app = new Application<AppState>()
+// const store = new CookieStore(envVars.SECRET_KEY)
+// app.use(Session.initMiddleware(store))
 
-app.use(oakCors())
+const store = new PrismaSessionStore(
+  new PrismaClient(),
+  {
+    checkPeriod: 2 * 60 * 1000,  //ms
+    dbRecordIdIsSessionId: true,
+    dbRecordIdFunction: undefined,
+  }
+)
+const sessionOptions: SessionOptions = {
+  store: store,
+}
+
+app.use(oakSession(sessionOptions))
+
+app.use(oakCors({
+  "origin": "http://localhost:5173",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 200,
+  "credentials": true
+}))
 
 app.use(route.routes());
 app.use(route.allowedMethods())

@@ -23,6 +23,8 @@ export const getUser = async ({ response }: { response: any }) => {
   }
 };
 
+
+
 export const signup = async (
   { request, response }: { request: any; response: any },
 ) => {
@@ -61,7 +63,7 @@ export const signup = async (
 };
 
 export const signin = async (
-  { request, response, cookies }: { request: any; response: any; cookies: any },
+  { request, response, cookies, state }: { request: any; response: any; cookies: any; state:any; },
 ) => {
   const body = request.body({ type: "json" });
   const result = await body.value;
@@ -86,14 +88,31 @@ export const signin = async (
       exp: getNumericDate(60 * 60),
     };
 
+    state.rotate_session_key = true
+
     const jwt = await create({ alg: "HS512", typ: "JWT" }, { payload }, key);
 
-    cookies.set("token", jwt);
+    request.session.data = {user: user.username}
+
+    const kue = `access_token=${jwt}; HttpOnly; Secure; SameSite=Strict`
+
+    await cookies.set(kue)
+    
+    console.log(`sigin: ${user.username}`)
+
+    // state.session.set('username', user.username)
+    // state.session.set('failed-login-attempts', null)
+    // state.session.flash('message', 'Login successful')
+
+    state = {
+      user: username
+    }
 
     if (jwt) {
       const res = {
         userId: user.id,
         username: user.username,
+        role: user.role,
         token: jwt,
       };
       fresponse(200, res, "OK", response);

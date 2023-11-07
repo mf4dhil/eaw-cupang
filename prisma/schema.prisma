@@ -9,6 +9,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String // MediumText may be needed for MySql
+  expiresAt DateTime
+}
+
 model User {
   id        Int       @id @default(autoincrement())
   nama      String
@@ -36,15 +43,15 @@ model Category {
 }
 
 model Product {
-  id         Int             @id @default(autoincrement())
-  nama       String
-  desc       String
-  img        String
-  harga      Int
-  stock      Int
-  category   Category[]
-  detailPes  DetailPesanan[] @relation("DetailPesananToProduct")
-  CartItem   CartItem[]
+  id        Int             @id @default(autoincrement())
+  nama      String
+  desc      String
+  img       String
+  harga     Int
+  stock     Int
+  category  Category[]
+  detailPes DetailPesanan[] @relation("DetailPesananToProduct")
+  CartItem  CartItem[]
 }
 
 model Pesanan {
@@ -85,7 +92,7 @@ model Cart {
   id     Int        @id @default(autoincrement())
   items  CartItem[]
   user   User?      @relation(fields: [userId], references: [id])
-  userId Int? @unique
+  userId Int?       @unique
 }
 
 model CartItem {
