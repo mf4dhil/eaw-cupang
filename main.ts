@@ -38,7 +38,8 @@ const store = new CookieStore("very-secret-key");
 app.use(Session.initMiddleware(store));
 
 app.use(oakCors({
-  "origin": "http://localhost:5173",
+  "origin": "http://localhost:3001",
+  
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 200,
