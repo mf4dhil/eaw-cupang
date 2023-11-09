@@ -1,0 +1,105 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client"
+  previewFeatures = ["deno"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String // MediumText may be needed for MySql
+  expiresAt DateTime
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  nama      String
+  username  String    @unique
+  email     String    @unique
+  password  String
+  role      String
+  alamat    Alamat[]
+  pembelian Pesanan[]
+  cart      Cart?
+}
+
+model Alamat {
+  id     Int    @id @default(autoincrement())
+  alamat String
+  gedung String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  nama    String
+  product Product[]
+}
+
+model Product {
+  id        Int             @id @default(autoincrement())
+  nama      String
+  desc      String
+  img       String
+  harga     Int
+  stock     Int
+  category  Category[]
+  detailPes DetailPesanan[] @relation("DetailPesananToProduct")
+  CartItem  CartItem[]
+}
+
+model Pesanan {
+  id             Int             @id @default(autoincrement())
+  tanggalPesanan DateTime        @default(now())
+  statusPesanan  String
+  pembeliId      Int
+  DetailPesanan  DetailPesanan[]
+  pengiriman     Pengiriman?
+  pembeli        User            @relation(fields: [pembeliId], references: [id])
+  BuktiBayar     BuktiBayar?
+}
+
+model DetailPesanan {
+  id        Int       @id @default(autoincrement())
+  pesananId Int
+  pesanan   Pesanan   @relation(fields: [pesananId], references: [id])
+  products  Product[] @relation("DetailPesananToProduct")
+  jumlah    Int
+}
+
+model Pengiriman {
+  id               Int      @default(autoincrement())
+  pesananId        Int      @unique
+  alamatPengiriman String
+  Tanggal          DateTime @default(now())
+  pesanan          Pesanan  @relation(fields: [pesananId], references: [id])
+}
+
+model BuktiBayar {
+  id        Int     @default(autoincrement())
+  pesananId Int     @unique
+  img       String?
+  pesanan   Pesanan @relation(fields: [pesananId], references: [id])
+}
+
+model Cart {
+  id     Int        @id @default(autoincrement())
+  items  CartItem[]
+  user   User?      @relation(fields: [userId], references: [id])
+  userId Int?       @unique
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    Int
+}
