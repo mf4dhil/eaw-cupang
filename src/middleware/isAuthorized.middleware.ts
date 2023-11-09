@@ -1,26 +1,13 @@
 // deno-lint-ignore-file
 import { verify } from "https://deno.land/x/djwt@v3.0.0/mod.ts";
-import { key } from "../utils/utils.apiKey.ts";
 import { Context } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import { fresponse, prisma } from "../Response.ts";
 
 // deno-lint-ignore no-explicit-any
 export const authorized = async (ctx: Context, next: any) => {
   try {
-    // const headers: Headers = ctx.request.headers
-    // const authorized = headers.get('Authorization')
-    // const username = await ctx.state.session.get("username")
-    // if (!username) {
-    //   return fresponse(401, null, "tidak terautentikasi", ctx.response);
-    // }
 
-    // const payload = await prisma.user.findUnique({
-    //   where: {
-    //     username: username
-    //   }
-    // })
-
-    const token =  ctx.state.username
+    const token = ctx.state.session.get("userId")
 
     console.log(token)
     if (!token) {
@@ -31,7 +18,7 @@ export const authorized = async (ctx: Context, next: any) => {
 
     const payload = await prisma.user.findUnique({
       where: {
-        username: token
+        id: token
       },
       select: {
             id: true,
@@ -42,19 +29,10 @@ export const authorized = async (ctx: Context, next: any) => {
           }
     })
 
-    console.log(payload)
+    // console.log(payload)
 
     if(!payload) return fresponse(401, null, "tidak terautentikasi", ctx.response)
 
-    // const payload = await verify(token, key);
-    // if(!authorized) return fresponse(401, null, "tidak ter autentikasi", ctx.response)
-    // const jwt = authorized.split(' ')[1]
-
-    // if(!jwt) return fresponse(401, null, "tidak ter autentikasii", ctx.response)
-
-    // const payload = await verify(jwt,key)
-    // if (!payload) return new Error("!payload");
-    ctx.state = payload;
 
     await next();
   } catch (error) {
@@ -70,10 +48,10 @@ export const authorized = async (ctx: Context, next: any) => {
 // deno-lint-ignore no-explicit-any
 export const isAdmin = async (ctx: Context, next: any) => {
   try {
-    const userId = await ctx.state.user.payload;
+    const userId = await ctx.state.session.get("userId")
     const cek = await prisma.user.findUnique({
       where: {
-        id: userId.id,
+        id: userId
       },
     });
 
@@ -117,37 +95,26 @@ export const getProductByCategory = async (ctx: Context, next: any) => {
 
 export const me = async (ctx: Context, next:any) => {
   try {
-    const token = ctx.response.headers.getSetCookie()
-    if (!token) {
+    const ses = ctx.state.session.get("userId")
+    if (!ses) {
       return fresponse(401, null, "tidak terautentikasi", ctx.response);
     }
-    console.log("Token Me:",token)
-    // const cek = await prisma.user.findUnique({
-    //   where: {
-    //     id: token.
-    //   },
-    //   select: {
-    //     id: true,
-    //     nama: true,
-    //     username: true,
-    //     email: true,
-    //     role: true
-    //   }
-    // });
+    const cek = await prisma.user.findUnique({
+      where: {
+        id: ses
+      },
+      select: {
+        id: true,
+        nama: true,
+        username: true,
+        email: true,
+        role: true
+      }
+    });
 
-    // ctx.cookies.set("token", jwt, {
-    //   httpOnly: true,
-    //   maxAge: 3600000,
-    //   secure: true,
-    //   signed: true,
-      
-    // })
+    if(!cek) return fresponse(401, null, "anda belum login", ctx.response)
 
-    // ctx.state.session.set("username", )
-
-    // if(!cek) return fresponse(401, null, "anda belum login", ctx.response)
-
-    // fresponse(200, cek, "user ditemukan", ctx.response)
+    fresponse(200, cek, "user ditemukan", ctx.response)
 
   } catch (error) {
     fresponse(500, null, error.message, ctx.response)

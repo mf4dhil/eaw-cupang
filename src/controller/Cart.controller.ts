@@ -6,10 +6,10 @@ export const getCart = async (
   { state, response }: { state: any; response: any },
 ) => {
   try {
-    const userId = await state.user.payload;
+    const userId = await state.session.get("userId")
     const carts = await prisma.cart.findMany({
       where: {
-        userId: userId.id
+        userId: userId
       },
       include: {
         _count: true,

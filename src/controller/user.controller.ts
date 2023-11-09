@@ -92,11 +92,11 @@ export const signin = async (
 
     const jwt = await create({ alg: "HS512", typ: "JWT" }, { payload }, key);
 
-    request.session.data = {user: user.username}
+    // request.session.data = {user: user.username}
 
-    const kue = `access_token=${jwt}; HttpOnly; Secure; SameSite=Strict`
+    // const kue = `access_token=${jwt}; HttpOnly; Secure; SameSite=Strict`
 
-    await cookies.set(kue)
+    cookies.set("token", jwt);
     
     console.log(`sigin: ${user.username}`)
 
@@ -104,9 +104,9 @@ export const signin = async (
     // state.session.set('failed-login-attempts', null)
     // state.session.flash('message', 'Login successful')
 
-    state = {
-      user: username
-    }
+    // const id = {"userId": user.id}
+
+    state.session.set("userId", user.id)
 
     if (jwt) {
       const res = {
@@ -125,14 +125,14 @@ export const signin = async (
 };
 
 export const signOut = async (
-  { response, cookies }: { request: any; response: any; cookies: any },
+  { response, cookies, state }: { request: any; response: any; cookies: any; state:any; },
 ) => {
   try {
     const token = await cookies.get("token");
     if (!token) return fresponse(401, null, "tidak ter autentikasi", response);
 
     const delToken = await cookies.delete("token");
-
+    await state.session.deleteSession()
     if (!delToken) return fresponse(400, null, "gagal sign out!", response);
 
     fresponse(200, null, "berhasil sign out!", response);
