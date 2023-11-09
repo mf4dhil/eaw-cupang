@@ -30,12 +30,12 @@ export const fresponse = <T>(
   res.body = apiResponse;
 };
 
-const envVars = await load();
+// const envVars = await load();
 
 export const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: envVars.DATABASE_URL,
+      url: "prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB",
     },
   },
 });
