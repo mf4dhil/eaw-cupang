@@ -257,9 +257,16 @@ config.inlineDatasources = {
 
 config.injectableEdgeEnv = {
   parsed: {
-    prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB: typeof globalThis !== 'undefined' && globalThis['prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB'] || typeof process !== 'undefined' && process.env && process.env.prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB || undefined
+    'prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB': typeof globalThis !== 'undefined' && globalThis['prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined,
   }
-}
+};
+
+
+// config.injectableEdgeEnv = {
+//   parsed: {
+//     prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB: typeof globalThis !== 'undefined' && globalThis['prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB'] || typeof process !== 'undefined' && process.env && process.env.prisma://aws-us-east-1.prisma-data.com/?api_key=_In5HKUtVfI8baDlOhxUq0-UHqvhOVOQRfJ8wwaGdPocan8a-BrdE2USVikijypB || undefined
+//   }
+// }
 
 config.edgeClientProtocol = "graphql";
 if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
